@@ -15,7 +15,7 @@ const paths = {
         src: './src/scss/**/*.scss',
         dest: './dist/css',
         concat: [
-          './node_modules/bootstrap/scss/bootstrap-grid.scss',
+          './node_modules/bootstrap/scss/bootstrap.scss',
           './src/scss/**/*.scss'
         ]
     },
