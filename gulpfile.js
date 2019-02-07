@@ -41,8 +41,8 @@ const paths = {
         ]
     },
     html: {
-        src: './src/hbs/*.hbs',
-        partials: './src/hbs/partials/**/*.hbs',
+        src: './src/hbs/**/*.hbs',
+        partials: './src/hbs/partials',
         dist: './dist/'
     },
     img: {
@@ -101,6 +101,9 @@ function js() {
 function hbs() {
     return gulp
         .src(paths.html.src)
+        .pipe(handlebars({}, {
+          batch: paths.html.partials
+        }))
         .pipe(ext('.html'))
         .pipe(gulp.dest(paths.html.dist))
         .pipe(browsersync.stream());
