@@ -13,7 +13,7 @@ const browserSync = require('browser-sync').create();
 
 const paths = {
     styles: {
-        src: 'src/scss/**/*.scss',
+        src: 'src/scss/main.scss',
         dist: 'dist/css'
     },
     scripts: {
@@ -30,11 +30,11 @@ const paths = {
             'node_modules/bootstrap/js/dist/dropdown.js',
             'node_modules/bootstrap/js/dist/index.js',
             'node_modules/bootstrap/js/dist/modal.js',
-            'node_modules/bootstrap/js/dist/popover.js', // This is the file that is creating the front end 'TypeError: e is undefined' issue, none other...!
             'node_modules/bootstrap/js/dist/scrollspy.js',
             'node_modules/bootstrap/js/dist/tab.js',
             'node_modules/bootstrap/js/dist/toast.js',
             'node_modules/bootstrap/js/dist/tooltip.js',
+            'node_modules/bootstrap/js/dist/popover.js',
             'src/js/**/*.js'
         ]
     },
