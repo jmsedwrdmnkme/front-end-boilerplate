@@ -4,13 +4,16 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const uglify = require('gulp-uglify');
+const stylish = require('jshint-stylish');
 const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const del = require('del');
+const jshint = require('gulp-jshint');
 const handlebars = require('gulp-compile-handlebars');
 const ext = require('gulp-ext-replace');
 const imagemin = require('gulp-imagemin');
+const sasslint = require('gulp-sass-lint');
 const browsersync = require('browser-sync').create();
 
 const paths = {
@@ -41,7 +44,7 @@ const paths = {
         ]
     },
     html: {
-        src: './src/hbs/**/*.hbs',
+        src: './src/hbs/*.hbs',
         partials: './src/hbs/partials',
         dist: './dist/'
     },
@@ -79,6 +82,9 @@ function clean() {
 function scss() {
     return gulp
         .src(paths.styles.src)
+        .pipe(sasslint({'config': '.sass-lint.yml'}))
+        .pipe(sasslint.format())
+        .pipe(sasslint.failOnError())
         .pipe(sass({outputStyle: 'compressed'}))
         .pipe(autoprefixer({browsers: ['last 2 versions']}))
         .pipe(cleanCSS())
@@ -87,14 +93,33 @@ function scss() {
 }
 
 // JS
+function jslint() {
+    return gulp
+        .src(paths.scripts.src)
+        .pipe(jshint())
+        .pipe(jshint.reporter(stylish))
+}
+
 function js() {
     return gulp
         .src(paths.scripts.concat)
-        .pipe(babel())
-        .pipe(uglify())
+        .pipe(babel({presets: ['@babel/preset-env']}))
+        .pipe(uglify({
+            mangle: true,
+            compress: {
+                sequences: true,
+                dead_code: true,
+                conditionals: true,
+                booleans: true,
+                unused: true,
+                if_return: true,
+                join_vars: true,
+                drop_console: true
+            }}
+        ))
         .pipe(concat('main.js'))
         .pipe(gulp.dest(paths.scripts.dist))
-        .pipe(browsersync.stream());
+        .pipe(browsersync.stream())
 }
 
 // Handlebars
@@ -133,20 +158,15 @@ function img() {
 // Watch files
 function watchFiles() {
     gulp.watch(paths.styles.src, scss);
-    gulp.watch(paths.scripts.src, js);
+    gulp.watch(paths.scripts.src, jslint, js);
     gulp.watch(paths.html.src, hbs);
     gulp.watch(paths.img.src, img);
 }
 
 // define complex tasks
-const build = gulp.series(clean, gulp.parallel(scss, img, hbs, js));
+const build = gulp.series(clean, gulp.parallel(scss, img, hbs, jslint, js));
 const watch = gulp.parallel(watchFiles, browserSync);
 
 // export tasks
-exports.img = img;
-exports.scss = scss;
-exports.js = js;
-exports.clean = clean;
-exports.build = build;
 exports.watch = watch;
 exports.default = build;
