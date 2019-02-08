@@ -102,7 +102,13 @@ function jslint() {
 function js() {
     return gulp
         .src(paths.scripts.concat)
-        .pipe(babel())
+        .pipe(babel({
+            presets: ['@babel/env'],
+            overrides: [{
+                test: './node_modules/**',
+                sourceType: 'script'
+            }]
+        }))
         .pipe(uglify({
             mangle: true,
             compress: {
@@ -113,7 +119,7 @@ function js() {
                 unused: true,
                 if_return: true,
                 join_vars: true,
-                drop_console: true
+                drop_console: false
             }}
         ))
         .pipe(concat('main.js'))
