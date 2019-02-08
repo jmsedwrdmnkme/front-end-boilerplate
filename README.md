@@ -9,9 +9,9 @@ Front end boilerplate using Bootstrap, brought in and kept up to date via Node p
 * gulp watch
 
 ### Building
-Refer to [https://getbootstrap.com/docs/4.2/layout/overview/] plus further left-hand nav items within the link.
+Refer to (https://getbootstrap.com/docs/) plus further left-hand nav items found at this link.
 
-Bootstrap modules are controlled via 'gulpfile.js' and 'src/scss/main.scss', for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
+Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/gulpfile.js) and [main.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/main.scss), for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
 
 ## Features
 * ES6 Javascript scripts process (linting, uglify, compression, concat)
@@ -32,3 +32,4 @@ Bootstrap modules are controlled via 'gulpfile.js' and 'src/scss/main.scss', for
 * Integrate non-critical path process for below the fold lazy-loading of scripts/styles after initial load
 * Integrate SVG icon sprite process
 * Integrate localstorage custom fonts on load for load speed benefits
+* Replace of gulp-compile-handlebars due to depreciation of gulp-util of which, this package uses
