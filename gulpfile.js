@@ -102,7 +102,7 @@ function jslint() {
 function js() {
     return gulp
         .src(paths.scripts.concat)
-        .pipe(babel({presets: ['@babel/preset-env']}))
+        .pipe(babel())
         .pipe(uglify({
             mangle: true,
             compress: {
