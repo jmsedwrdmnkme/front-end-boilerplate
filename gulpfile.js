@@ -67,13 +67,12 @@ function browserSync(done) {
     done();
 }
 
-// BrowserSync Reload
 function browserSyncReload(done) {
     browsersync.reload();
     done();
 }
 
-// Clean assets
+// Clean dist dir
 function clean() {
     return del(paths.html.dist);
 }
@@ -89,15 +88,15 @@ function scss() {
         .pipe(autoprefixer({browsers: ['last 2 versions']}))
         .pipe(cleanCSS())
         .pipe(gulp.dest(paths.styles.dist))
-        .pipe(browsersync.stream())
+        .pipe(browsersync.stream());
 }
 
 // JS
 function jslint() {
     return gulp
-        .src(paths.scripts.src)
+        .src([paths.scripts.src, './gulpfile.js'])
         .pipe(jshint())
-        .pipe(jshint.reporter(stylish))
+        .pipe(jshint.reporter(stylish));
 }
 
 function js() {
@@ -119,7 +118,7 @@ function js() {
         ))
         .pipe(concat('main.js'))
         .pipe(gulp.dest(paths.scripts.dist))
-        .pipe(browsersync.stream())
+        .pipe(browsersync.stream());
 }
 
 // Handlebars
@@ -152,7 +151,7 @@ function img() {
             })
         ])
     )
-    .pipe(gulp.dest(paths.img.dist))
+    .pipe(gulp.dest(paths.img.dist));
 }
 
 // Watch files
