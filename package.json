@@ -35,7 +35,7 @@
     "gulp-ext-replace": "latest",
     "gulp-imagemin": "latest",
     "gulp-jshint": "latest",
-    "gulp-mustache": "^4.1.0",
+    "gulp-mustache": "latest",
     "gulp-sass": "latest",
     "gulp-sass-lint": "latest",
     "gulp-svg-sprite": "latest",
