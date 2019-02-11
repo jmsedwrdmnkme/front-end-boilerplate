@@ -18,7 +18,7 @@ Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmn
 ## Features
 * ES6 Javascript scripts process (linting, uglify, compression, concat)
 * SASS styles process (linting, compression, autoprefixing, concat, loading of Bootstrap modules)
-* Handlebars HTML templating process (partials)
+* Mustache HTML templating process (featuring partials)
 * Imagemin IMG process (image optimisation and SVG minification)
 * ES6 Gulp process (parallel and series processing of files, loading of Bootstrap modules, build and watch processes for speed/time saving)
 * BrowserSync process (auto reload on file save/update)
