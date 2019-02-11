@@ -7,6 +7,8 @@ Front end boilerplate using Bootstrap, brought in and kept up to date via Node p
 * npm install --save-dev
 * gulp
 * gulp watch
+* Select initial Bootstrap modules for use (may be tweaked during build, read below).
+* Start building using the Bootstrap docs and delivered design visuals!
 
 ### Building
 Refer to (https://getbootstrap.com/docs/) plus further left-hand nav items found at this link.
@@ -28,8 +30,8 @@ Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmn
 * ~~Integrate browserSync into gulpfile process (already in package.json)~~
 * ~~Integrate hbs partials, previously implementation causes gulp process issues~~
 * ~~Integrate SVG icon sprite process~~
+* ~~Replace of gulp-compile-handlebars due to depreciation of gulp-util of which, this package uses~~
 * Integrate critical path process for above the fold scripts/styles on load
 * Integrate non-critical path process for below the fold lazy-loading of scripts/styles after initial load
 * Integrate localstorage custom fonts on load for load speed benefits
-* Replace of gulp-compile-handlebars due to depreciation of gulp-util of which, this package uses
 * ~~Integrate Bootstrap components into hbs/partials~~ (not worth it, big time sink when examples docs can be used)
