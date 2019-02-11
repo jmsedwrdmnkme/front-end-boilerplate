@@ -10,11 +10,11 @@ const autoprefixer = require('gulp-autoprefixer');
 const cleanCSS = require('gulp-clean-css');
 const del = require('del');
 const jshint = require('gulp-jshint');
-const handlebars = require('gulp-compile-handlebars');
 const ext = require('gulp-ext-replace');
 const imagemin = require('gulp-imagemin');
 const sasslint = require('gulp-sass-lint');
 const svgsprite = require('gulp-svg-sprite');
+const mustache = require("gulp-mustache");
 const browsersync = require('browser-sync').create();
 
 const paths = {
@@ -46,9 +46,8 @@ const paths = {
     ]
   },
   html: {
-    src: './src/hbs/*.hbs',
-    watch: './src/hbs/**/*.hbs',
-    partials: './src/hbs/partials/',
+    src: './src/mustache/*.mustache',
+    watch: './src/mustache/**/*.mustache',
     dist: './dist/'
   },
   img: {
@@ -56,7 +55,8 @@ const paths = {
     dist: './dist/img/'
   },
   sprite: {
-    src: './src/sprite/**/*'
+    src: './src/sprite/**/*',
+    dist: './src/mustache/'
   }
 };
 
@@ -134,13 +134,11 @@ function js() {
 }
 
 // Handlebars
-function hbs() {
+function html() {
   return gulp
     .src(paths.html.src)
     .pipe(
-      handlebars({}, {
-        batch: paths.html.partials
-      })
+      mustache()
     )
     .pipe(ext('.html'))
     .pipe(gulp.dest(paths.html.dist))
@@ -191,8 +189,8 @@ function sprite() {
         }
       })
     )
-    .pipe(concat('iconsprite.hbs'))
-    .pipe(gulp.dest(paths.html.partials));
+    .pipe(concat('iconsprite.mustashe'))
+    .pipe(gulp.dest(paths.sprite.dist));
 }
 
 // Watch files
@@ -200,12 +198,12 @@ function watchFiles() {
   gulp.watch(paths.styles.watch, scss);
   gulp.watch(paths.scripts.src, jslint, js);
   gulp.watch(paths.sprite.src, sprite);
-  gulp.watch(paths.html.watch, hbs);
+  gulp.watch(paths.html.watch, html);
   gulp.watch(paths.img.src, img);
 }
 
 // define complex tasks
-const build = gulp.series(clean, gulp.parallel(scss, img, sprite, hbs, jslint, js));
+const build = gulp.series(clean, gulp.parallel(scss, img, sprite, html, jslint, js));
 const watch = gulp.parallel(watchFiles, browserSync);
 
 // export tasks
