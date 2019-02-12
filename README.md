@@ -6,7 +6,6 @@ Front end boilerplate using Bootstrap, brought in and kept up to date via Node p
 * cd front-end-boilerplate
 * npm install --save-dev
 * gulp
-* gulp watch
 * Select initial Bootstrap modules for use (may be tweaked during build, read below).
 * Start building using the Bootstrap docs and delivered design visuals!
 
