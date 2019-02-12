@@ -25,6 +25,7 @@ Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmn
 * Node package manager (for both install and updating of dependencies - JQuery, Popper, Bootstrap)
 * Single JS and CSS file outputs for minimal HTTP requests
 * SVG icon sprite (generated inline from SVG assets)
+* Localstorage storage of supplied webfonts in base64 - both WOFF and WOFF2, for cross browser - decrease in load times and page load
 
 ## To do
 * ~~Update README.md with details about boilerplate~~
@@ -34,5 +35,5 @@ Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmn
 * ~~Replace of gulp-compile-handlebars due to depreciation of gulp-util of which, this package uses~~
 * Integrate critical path process for above the fold scripts/styles on load
 * Integrate non-critical path process for below the fold lazy-loading of scripts/styles after initial load
-* Integrate localstorage custom fonts on load for load speed benefits
+* ~~Integrate localstorage custom fonts on load for load speed benefits~~
 * ~~Integrate Bootstrap components into hbs/partials~~ (not worth it, big time sink when examples docs can be used)
