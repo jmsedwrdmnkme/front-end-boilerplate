@@ -40,6 +40,7 @@
     "gulp-sass-lint": "latest",
     "gulp-svg-sprite": "latest",
     "jquery": "latest",
+    "jquery-lazy": "^1.7.10",
     "jshint": "latest",
     "jshint-stylish": "latest",
     "node-sass": "latest",
