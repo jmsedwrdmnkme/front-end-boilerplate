@@ -14,6 +14,8 @@ Refer to (https://getbootstrap.com/docs/) plus further left-hand nav items found
 
 Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/gulpfile.js) and [main.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/main.scss), for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
 
+Updates/Customisations to default Bootstrap styling to be appended within [variables.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/partials/global/variables.scss) this removes any overwrites to existing Bootstrap styles by replacing the default variables BEFORE Bootstrap compiles its output
+
 ## Features
 * ES6 Javascript scripts process (linting, uglify, compression, concat)
 * SASS styles process (linting, compression, autoprefixing, concat, loading of Bootstrap modules)
