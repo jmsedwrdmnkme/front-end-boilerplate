@@ -55,8 +55,8 @@ const paths = {
     dist: './dist/img/'
   },
   sprite: {
-    src: './src/sprite/**/*',
-    dist: './src/mustache/'
+    src: './src/sprite/**/**/*.svg',
+    dist: './src/mustache/partials/global/'
   }
 };
 
@@ -189,7 +189,7 @@ function sprite() {
         }
       })
     )
-    .pipe(concat('iconsprite.mustashe'))
+    .pipe(concat('iconsprite.mustache'))
     .pipe(gulp.dest(paths.sprite.dist));
 }
 
