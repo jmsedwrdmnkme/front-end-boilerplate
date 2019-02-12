@@ -19,9 +19,12 @@ const browsersync = require('browser-sync').create();
 
 const paths = {
   styles: {
-    src: './src/scss/main.scss',
+    src: './src/scss/*.scss',
     watch: './src/scss/**/**/*.scss',
     dist: './dist/css/'
+  },
+  fonts: {
+    src: './src/fonts/*.scss'
   },
   scripts: {
     src: './src/js/**/*.js',
@@ -93,6 +96,15 @@ function scss() {
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(autoprefixer({browsers: ['last 2 versions']}))
     .pipe(cleanCSS())
+    .pipe(gulp.dest(paths.styles.dist))
+    .pipe(browsersync.stream());
+}
+
+// Fonts
+function fonts() {
+  return gulp
+    .src(paths.fonts.src)
+    .pipe(sass({outputStyle: 'compressed'}))
     .pipe(gulp.dest(paths.styles.dist))
     .pipe(browsersync.stream());
 }
@@ -196,6 +208,7 @@ function sprite() {
 // Watch files
 function watchFiles() {
   gulp.watch(paths.styles.watch, scss);
+  gulp.watch(paths.fonts.src, fonts);
   gulp.watch(paths.scripts.src, jslint, js);
   gulp.watch(paths.sprite.src, sprite);
   gulp.watch(paths.html.watch, html);
@@ -203,9 +216,7 @@ function watchFiles() {
 }
 
 // define complex tasks
-const build = gulp.series(clean, gulp.parallel(scss, img, sprite, html, jslint, js));
-const watch = gulp.parallel(watchFiles, browserSync);
+const watch = gulp.series(clean, gulp.parallel(scss, fonts, img, sprite, html, jslint, js), gulp.parallel(watchFiles, browserSync));
 
 // export tasks
-exports.watch = watch;
-exports.default = build;
+exports.default = watch;

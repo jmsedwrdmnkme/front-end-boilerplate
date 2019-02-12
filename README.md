@@ -24,6 +24,7 @@ Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmn
 * BrowserSync process (auto reload on file save/update)
 * Node package manager (for both install and updating of dependencies - JQuery, Popper, Bootstrap)
 * Single JS and CSS file outputs for minimal HTTP requests
+* SVG icon sprite (generated inline from SVG assets)
 
 ## To do
 * ~~Update README.md with details about boilerplate~~
