@@ -24,6 +24,7 @@
   "devDependencies": {
     "@babel/core": "latest",
     "@babel/preset-env": "latest",
+    "@babel/register": "latest",
     "babel-core": "latest",
     "babel-polyfill": "latest",
     "babel-preset-env": "latest",

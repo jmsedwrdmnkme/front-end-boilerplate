@@ -94,7 +94,7 @@ function clean() {
 // Styles
 function scss() {
   return gulp
-    .src(paths.styles.src)
+    .src(paths.styles.src, { allowEmpty: true })
     .pipe(sasslint({'config': '.sass-lint.yml'}))
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
@@ -107,7 +107,7 @@ function scss() {
 
 function scsslazyload() {
   return gulp
-    .src(paths.styles.critical)
+    .src(paths.styles.critical, { allowEmpty: true })
     .pipe(sasslint({'config': '.sass-lint.yml'}))
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
@@ -122,7 +122,7 @@ function scsslazyload() {
 // Fonts
 function fonts() {
   return gulp
-    .src(paths.fonts.src)
+    .src(paths.fonts.src, { allowEmpty: true })
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(gulp.dest(paths.styles.dist))
     .pipe(browsersync.stream());
@@ -131,7 +131,7 @@ function fonts() {
 // JS
 function jslint() {
   return gulp
-    .src([paths.scripts.src, './gulpfile.js'])
+    .src([paths.scripts.src, './gulpfile.js'], { allowEmpty: true })
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
     .pipe(browsersync.stream());
@@ -139,7 +139,7 @@ function jslint() {
 
 function jslazyload() {
   return gulp
-    .src([paths.scripts.lazyjs, paths.scripts.lazycss])
+    .src([paths.scripts.lazyjs, paths.scripts.lazycss], { allowEmpty: true })
     .pipe(ext('.mustache'))
     .pipe(gulp.dest(paths.sprite.dist))
     .pipe(browsersync.stream());
@@ -147,7 +147,7 @@ function jslazyload() {
 
 function js() {
   return gulp
-    .src(paths.scripts.concat)
+    .src(paths.scripts.concat, { allowEmpty: true })
     .pipe(
       babel({
         presets: ['@babel/env'],
@@ -178,7 +178,7 @@ function js() {
 // Handlebars
 function html() {
   return gulp
-    .src(paths.html.src)
+    .src(paths.html.src, { allowEmpty: true })
     .pipe(
       mustache()
     )
@@ -190,7 +190,7 @@ function html() {
 // Images
 function img() {
   return gulp
-    .src(paths.img.src)
+    .src(paths.img.src, { allowEmpty: true })
     .pipe(
       imagemin([
         imagemin.gifsicle({ interlaced: true }),
@@ -213,7 +213,7 @@ function img() {
 // Icon sprite
 function sprite() {
   return gulp
-    .src(paths.sprite.src)
+    .src(paths.sprite.src, { allowEmpty: true })
     .pipe(
       svgsprite({
         shape: {
