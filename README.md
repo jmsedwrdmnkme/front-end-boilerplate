@@ -32,12 +32,6 @@ Updates/Customisations to default Bootstrap styling to be appended within [varia
 * Lazyloading of non-critical CSS files (loadCSS, loads after initial paint)
 
 ## To do
-* ~~Update README.md with details about boilerplate~~
-* ~~Integrate browserSync into gulpfile process (already in package.json)~~
-* ~~Integrate hbs partials, previously implementation causes gulp process issues~~
-* ~~Integrate SVG icon sprite process~~
-* ~~Replace of gulp-compile-handlebars due to depreciation of gulp-util of which, this package uses~~
-* ~~Integrate critical path process for above the fold scripts/styles on load~~
-* ~~Integrate non-critical path process for below the fold lazy-loading of scripts/styles after initial load~~
-* ~~Integrate localstorage custom fonts on load for load speed benefits~~
-* ~~Integrate Bootstrap components into hbs/partials~~ (not worth it, big time sink when examples docs can be used)
+* Update README with full process(es) and URLs etc, etc...
+* Critical inline JS within footer(?)
+* Look into minimising critical CSS from Bootstrap further
