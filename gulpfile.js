@@ -27,9 +27,10 @@ const paths = {
     src: './src/fonts/*.scss'
   },
   scripts: {
-    src: './src/js/**/*.js',
+    src: './src/js/main.js', // Main JS files, non-critical, lazyloaded after initial paint
+    lazyload: './node_modules/loadjs/dist/loadjs.min.js', // Lazyload library
     dist: './dist/js/',
-    concat: [ // Jquery + Popper + Util required, comment other Bootstrap modules as needed
+    concat: [ // Jquery + Popper + Util required, Bootstrap modules as needed, lazyloaded
       './node_modules/jquery/dist/jquery.slim.js',
       './node_modules/popper.js/dist/umd/popper.js',
       './node_modules/jquery-lazy/jquery.lazy.js',
@@ -47,7 +48,7 @@ const paths = {
       //'./node_modules/bootstrap/js/dist/toast.js',
       //'./node_modules/bootstrap/js/dist/tooltip.js',
       //'./node_modules/bootstrap/js/dist/popover.js',
-      './src/js/**/*.js'
+      './src/js/main.js'
     ]
   },
   html: {
@@ -119,16 +120,25 @@ function jslint() {
     .pipe(jshint.reporter(stylish));
 }
 
+function jslazyload() {
+  return gulp
+    .src(paths.scripts.lazyload)
+    .pipe(concat('lazyload.mustache'))
+    .pipe(gulp.dest(paths.sprite.dist));
+}
+
 function js() {
   return gulp
     .src(paths.scripts.concat)
-    .pipe(babel({
-      presets: ['@babel/env'],
-      overrides: [{
-        test: './node_modules/**',
-        sourceType: 'script'
-      }]
-    }))
+    .pipe(
+      babel({
+        presets: ['@babel/env'],
+        overrides: [{
+          test: './node_modules/**',
+          sourceType: 'script'
+        }]
+      })
+    )
     .pipe(uglify({
       mangle: true,
       compress: {
@@ -211,14 +221,14 @@ function sprite() {
 function watchFiles() {
   gulp.watch(paths.styles.watch, scss);
   gulp.watch(paths.fonts.src, fonts);
-  gulp.watch(paths.scripts.src, jslint, js);
+  gulp.watch(paths.scripts.src, jslint, js, jslazyload);
   gulp.watch(paths.sprite.src, sprite);
   gulp.watch(paths.html.watch, html);
   gulp.watch(paths.img.src, img);
 }
 
 // define complex tasks
-const watch = gulp.series(clean, gulp.parallel(scss, fonts, img, sprite, html, jslint, js), gulp.parallel(watchFiles, browserSync));
+const watch = gulp.series(clean, gulp.parallel(scss, fonts, img, sprite, html, jslint, js, jslazyload), gulp.parallel(watchFiles, browserSync));
 
 // export tasks
 exports.default = watch;

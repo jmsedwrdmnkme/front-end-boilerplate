@@ -27,7 +27,7 @@
     "babel-core": "latest",
     "babel-polyfill": "latest",
     "babel-preset-env": "latest",
-    "bootstrap": "latest",
+    "bootstrap": "^4.3.0",
     "browser-sync": "latest",
     "gulp-autoprefixer": "latest",
     "gulp-babel": "latest",
@@ -43,6 +43,7 @@
     "jquery-lazy": "^1.7.10",
     "jshint": "latest",
     "jshint-stylish": "latest",
+    "loadjs": "^3.5.5",
     "node-sass": "latest",
     "popper.js": "latest"
   },
