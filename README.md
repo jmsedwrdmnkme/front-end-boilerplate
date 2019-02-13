@@ -26,7 +26,8 @@ Updates/Customisations to default Bootstrap styling to be appended within [varia
 * Node package manager (for both install and updating of dependencies - JQuery, Popper, Bootstrap)
 * Single JS and CSS file outputs for minimal HTTP requests
 * SVG icon sprite (generated inline from SVG assets)
-* Localstorage storage of supplied webfonts in base64 - both WOFF and WOFF2, for cross browser - decrease in load times and page load
+* Localstorage storage of supplied webfonts in base64 - both WOFF and WOFF2 (cross browser decrease in load times and page load)
+* Lazyloading of non-critical JS files (loadJS, loads after initial paint)
 
 ## To do
 * ~~Update README.md with details about boilerplate~~
