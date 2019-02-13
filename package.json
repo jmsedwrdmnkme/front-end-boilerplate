@@ -29,6 +29,7 @@
     "babel-preset-env": "latest",
     "bootstrap": "^4.3.0",
     "browser-sync": "latest",
+    "fg-loadcss": "^2.1.0",
     "gulp-autoprefixer": "latest",
     "gulp-babel": "latest",
     "gulp-clean-css": "latest",

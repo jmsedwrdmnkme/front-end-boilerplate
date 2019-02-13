@@ -19,7 +19,8 @@ const browsersync = require('browser-sync').create();
 
 const paths = {
   styles: {
-    src: './src/scss/*.scss',
+    src: './src/scss/main.scss',
+    critical: './src/scss/critical.scss',
     watch: './src/scss/**/**/*.scss',
     dist: './dist/css/'
   },
@@ -28,7 +29,8 @@ const paths = {
   },
   scripts: {
     src: './src/js/main.js', // Main JS files, non-critical, lazyloaded after initial paint
-    lazyload: './node_modules/loadjs/dist/loadjs.min.js', // Lazyload library
+    lazyjs: './node_modules/loadjs/dist/loadjs.min.js', // Lazyload JS library
+    lazycss: './node_modules/fg-loadcss/dist/cssrelpreload.min.js', // Lazyload CSS library
     dist: './dist/js/',
     concat: [ // Jquery + Popper + Util required, Bootstrap modules as needed, lazyloaded
       './node_modules/jquery/dist/jquery.slim.js',
@@ -103,6 +105,20 @@ function scss() {
     .pipe(browsersync.stream());
 }
 
+function scsslazyload() {
+  return gulp
+    .src(paths.styles.critical)
+    .pipe(sasslint({'config': '.sass-lint.yml'}))
+    .pipe(sasslint.format())
+    .pipe(sasslint.failOnError())
+    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(autoprefixer({browsers: ['last 2 versions']}))
+    .pipe(cleanCSS())
+    .pipe(ext('.mustache'))
+    .pipe(gulp.dest(paths.sprite.dist))
+    .pipe(browsersync.stream());
+}
+
 // Fonts
 function fonts() {
   return gulp
@@ -117,14 +133,16 @@ function jslint() {
   return gulp
     .src([paths.scripts.src, './gulpfile.js'])
     .pipe(jshint())
-    .pipe(jshint.reporter(stylish));
+    .pipe(jshint.reporter(stylish))
+    .pipe(browsersync.stream());
 }
 
 function jslazyload() {
   return gulp
-    .src(paths.scripts.lazyload)
-    .pipe(concat('lazyload.mustache'))
-    .pipe(gulp.dest(paths.sprite.dist));
+    .src([paths.scripts.lazyjs, paths.scripts.lazycss])
+    .pipe(ext('.mustache'))
+    .pipe(gulp.dest(paths.sprite.dist))
+    .pipe(browsersync.stream());
 }
 
 function js() {
@@ -188,7 +206,8 @@ function img() {
         })
       ])
     )
-    .pipe(gulp.dest(paths.img.dist));
+    .pipe(gulp.dest(paths.img.dist))
+    .pipe(browsersync.stream());
 }
 
 // Icon sprite
@@ -214,12 +233,13 @@ function sprite() {
       })
     )
     .pipe(concat('iconsprite.mustache'))
-    .pipe(gulp.dest(paths.sprite.dist));
+    .pipe(gulp.dest(paths.sprite.dist))
+    .pipe(browsersync.stream());
 }
 
 // Watch files
 function watchFiles() {
-  gulp.watch(paths.styles.watch, scss);
+  gulp.watch(paths.styles.watch, scss, scsslazyload, html);
   gulp.watch(paths.fonts.src, fonts);
   gulp.watch(paths.scripts.src, jslint, js, jslazyload);
   gulp.watch(paths.sprite.src, sprite);
@@ -228,7 +248,25 @@ function watchFiles() {
 }
 
 // define complex tasks
-const watch = gulp.series(clean, gulp.parallel(scss, fonts, img, sprite, html, jslint, js, jslazyload), gulp.parallel(watchFiles, browserSync));
+const watch =
+  gulp.series(
+    clean,
+    gulp.parallel(
+      fonts,
+      img,
+      sprite,
+      scss,
+      scsslazyload,
+      jslint,
+      js,
+      jslazyload
+    ),
+    gulp.parallel(
+      html
+    ),
+    browserSync,
+    watchFiles
+  );
 
 // export tasks
 exports.default = watch;

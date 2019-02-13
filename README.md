@@ -28,6 +28,8 @@ Updates/Customisations to default Bootstrap styling to be appended within [varia
 * SVG icon sprite (generated inline from SVG assets)
 * Localstorage storage of supplied webfonts in base64 - both WOFF and WOFF2 (cross browser decrease in load times and page load)
 * Lazyloading of non-critical JS files (loadJS, loads after initial paint)
+* Critical path CSS inline in document head (increased load speed, less http round trips)
+* Lazyloading of non-critical CSS files (loadCSS, loads after initial paint)
 
 ## To do
 * ~~Update README.md with details about boilerplate~~
@@ -35,7 +37,7 @@ Updates/Customisations to default Bootstrap styling to be appended within [varia
 * ~~Integrate hbs partials, previously implementation causes gulp process issues~~
 * ~~Integrate SVG icon sprite process~~
 * ~~Replace of gulp-compile-handlebars due to depreciation of gulp-util of which, this package uses~~
-* Integrate critical path process for above the fold scripts/styles on load
-* Integrate non-critical path process for below the fold lazy-loading of scripts/styles after initial load
+* ~~Integrate critical path process for above the fold scripts/styles on load~~
+* ~~Integrate non-critical path process for below the fold lazy-loading of scripts/styles after initial load~~
 * ~~Integrate localstorage custom fonts on load for load speed benefits~~
 * ~~Integrate Bootstrap components into hbs/partials~~ (not worth it, big time sink when examples docs can be used)
