@@ -7,17 +7,17 @@
   <meta name="author" content="">
   <title></title>
 
-  <script>{{> ./fontlocalstorage }}</script>
+  <script>{{> ./global/fontlocalstorage }}</script>
 
-  <style>{{> ./criticalcss }}</style>
+  <style>{{> ./global/criticalcss }}</style>
 
   <link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="/css/main.css"></noscript>
-  <script>{{> ./cssrelpreload.min.mustache }}</script>
+  <script>{{> ./global/cssrelpreload.min.mustache }}</script>
 </head>
 <body>
 
-{{> ./iconsprite }}
+{{> ./global/sprite }}
 
 <a href="#content" class="sr-only sr-only-focusable">Skip to main content</a>
 

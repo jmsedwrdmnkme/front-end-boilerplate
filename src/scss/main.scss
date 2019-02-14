@@ -3,7 +3,7 @@
 //
 
 // Bootstrap variable overwrites
-@import './global/variables';
+@import './partials/variables';
 
 // Bootstrap required
 @import '../../node_modules/bootstrap/scss/functions';
@@ -33,4 +33,4 @@
 @import '../../node_modules/bootstrap/scss/tooltip';
 
 // Project styles
-@import './global/footer';
+@import './partials/footer';
