@@ -14,7 +14,7 @@ Refer to (https://getbootstrap.com/docs/) plus further left-hand nav items found
 
 Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/gulpfile.js) and [main.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/main.scss), for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
 
-Updates/Customisations to default Bootstrap styling to be appended within [variables.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/partials/global/variables.scss) this removes any overwrites to existing Bootstrap styles by replacing the default variables BEFORE Bootstrap compiles its output
+Updates/Customisations to default Bootstrap styling to be appended within [variables.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/global/variables.scss) this removes any overwrites to existing Bootstrap styles by replacing the default variables BEFORE Bootstrap compiles its output
 
 ## Features
 * ES6 Javascript scripts process (linting, uglify, compression, concat)
@@ -30,8 +30,10 @@ Updates/Customisations to default Bootstrap styling to be appended within [varia
 * Lazyloading of non-critical JS files (loadJS, loads after initial paint)
 * Critical path CSS inline in document head (increased load speed, less http round trips)
 * Lazyloading of non-critical CSS files (loadCSS, loads after initial paint)
+* Critical path JS inline in document footer (increased load speed, less http round trips)
+* Favicon creation from supplied PNG (64x64, 32x32, 24x24 and 16x16 for cross device/browser output support)
 
 ## To do
+* Clean up and optimise of Gulpfile, due to lots of processes!
 * Update README with full process(es) and URLs etc, etc...
-* Critical inline JS within footer(?)
 * Look into minimising critical CSS from Bootstrap further

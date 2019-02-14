@@ -1,5 +1,6 @@
 'use strict';
 
+const ico = require('gulp-to-ico');
 const gulp = require('gulp');
 const babel = require('gulp-babel');
 const concat = require('gulp-concat');
@@ -19,16 +20,21 @@ const browsersync = require('browser-sync').create();
 
 const paths = {
   styles: {
-    src: './src/scss/main.scss',
-    critical: './src/scss/critical.scss',
+    src: './src/scss/main.scss', // Lazyloaded non-critical CSS
+    critical: './src/scss/critical.scss', // Critical inline CSS in head
     watch: './src/scss/**/**/*.scss',
     dist: './dist/css/'
   },
   fonts: {
     src: './src/fonts/*.scss'
   },
+  icons: {
+    src: './src/icon/favicon.png',
+    dist: './dist/'
+  },
   scripts: {
     src: './src/js/main.js', // Main JS files, non-critical, lazyloaded after initial paint
+    critical: './src/js/critical.js', // Critical inline JS within footer
     lazyjs: './node_modules/loadjs/dist/loadjs.min.js', // Lazyload JS library
     lazycss: './node_modules/fg-loadcss/dist/cssrelpreload.min.js', // Lazyload CSS library
     dist: './dist/js/',
@@ -91,6 +97,15 @@ function clean() {
   return del(paths.html.dist);
 }
 
+// Icon
+function icons() {
+  return gulp
+    .src(paths.icons.src, { allowEmpty: true })
+    .pipe(ico('favicon.ico', { resize: true, sizes: [16, 24, 32, 64] }))
+    .pipe(gulp.dest(paths.icons.dist))
+    .pipe(browsersync.stream());
+}
+
 // Styles
 function scss() {
   return gulp
@@ -114,6 +129,7 @@ function scsslazyload() {
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(autoprefixer({browsers: ['last 2 versions']}))
     .pipe(cleanCSS())
+    .pipe(concat('criticalcss.scss'))
     .pipe(ext('.mustache'))
     .pipe(gulp.dest(paths.sprite.dist))
     .pipe(browsersync.stream());
@@ -140,6 +156,37 @@ function jslint() {
 function jslazyload() {
   return gulp
     .src([paths.scripts.lazyjs, paths.scripts.lazycss], { allowEmpty: true })
+    .pipe(ext('.mustache'))
+    .pipe(gulp.dest(paths.sprite.dist))
+    .pipe(browsersync.stream());
+}
+
+function jscritical() {
+  return gulp
+    .src(paths.scripts.critical, { allowEmpty: true })
+    .pipe(
+      babel({
+        presets: ['@babel/env'],
+        overrides: [{
+          test: './node_modules/**',
+          sourceType: 'script'
+        }]
+      })
+    )
+    .pipe(uglify({
+      mangle: true,
+      compress: {
+        sequences: true,
+        dead_code: true,
+        conditionals: true,
+        booleans: true,
+        unused: true,
+        if_return: true,
+        join_vars: true,
+        drop_console: false
+      }}
+    ))
+    .pipe(concat('criticaljs.js'))
     .pipe(ext('.mustache'))
     .pipe(gulp.dest(paths.sprite.dist))
     .pipe(browsersync.stream());
@@ -241,7 +288,8 @@ function sprite() {
 function watchFiles() {
   gulp.watch(paths.styles.watch, scss, scsslazyload, html);
   gulp.watch(paths.fonts.src, fonts);
-  gulp.watch(paths.scripts.src, jslint, js, jslazyload);
+  gulp.watch(paths.icons.src, icons);
+  gulp.watch(paths.scripts.src, jslint, jscritical, js, jslazyload);
   gulp.watch(paths.sprite.src, sprite);
   gulp.watch(paths.html.watch, html);
   gulp.watch(paths.img.src, img);
@@ -253,10 +301,12 @@ const watch =
     clean,
     gulp.parallel(
       fonts,
+      icons,
       img,
       sprite,
       scss,
       scsslazyload,
+      jscritical,
       jslint,
       js,
       jslazyload
