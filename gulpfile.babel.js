@@ -287,16 +287,33 @@ const watch =
       jscritical,
       jsnoncritical
     ),
+    jslazyloadmodules,
     html,
     browserSync,
     watchFiles
   );
 
+const csswatch =
+  gulp.series(
+    csslint,
+    csscritical,
+    cssnoncritical,
+    html
+  );
+
+const jswatch =
+  gulp.series(
+    jslint,
+    jscritical,
+    jsnoncritical,
+    html
+  );
+
 function watchFiles() {
-  gulp.watch('./src/scss/**/**/*.scss', csslint, csscritical, cssnoncritical);
+  gulp.watch('./src/scss/**/**/*.scss', csswatch);
   gulp.watch('./src/fonts/*.scss', fonts);
   gulp.watch('./src/favicon/*', favicon);
-  gulp.watch('./src/js/**/*.js', jslint, jscritical, jsnoncritical);
+  gulp.watch('./src/js/**/*.js', jswatch);
   gulp.watch('./src/sprite/**/**/*.svg', sprite);
   gulp.watch('./src/mustache/**/**/**/*.mustache', html);
   gulp.watch('./src/img/**/**/*', images);

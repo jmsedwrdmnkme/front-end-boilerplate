@@ -34,7 +34,5 @@ Updates/Customisations to default Bootstrap styling to be appended within [varia
 * Favicon creation from supplied PNG (64x64, 32x32, 24x24 and 16x16 for cross device/browser output support)
 
 ## To do
-* ~~Clean up and optimise of Gulpfile, due to lots of processes!~~
-* Regarding above gulpfile clean up recently finished, allow watch to compile critical inline mustaches and correctly pipe them to BrowserSync test during gulp watch
 * Update README with full process(es) and URLs etc, etc...
 * Look into minimising critical CSS from Bootstrap further
