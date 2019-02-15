@@ -12,9 +12,9 @@ Front end boilerplate using Bootstrap, brought in and kept up to date via Node p
 ### Building
 Refer to (https://getbootstrap.com/docs/) plus further left-hand nav items found at this link.
 
-Bootstrap modules are controlled via [gulpfile.js](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/gulpfile.js) and [main.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/main.scss), for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
+Bootstrap modules are controlled via [gulpfile.js for lazyloaded javascript modules](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/gulpfile.babel.js), [critical.scss inline styles](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/critical.scss) and [main.scss for lazyloaded styles](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/main.scss), for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
 
-Updates/Customisations to default Bootstrap styling to be appended within [variables.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/global/variables.scss) this removes any overwrites to existing Bootstrap styles by replacing the default variables BEFORE Bootstrap compiles its output
+Updates/Customisations to default Bootstrap styling to be appended within [variables.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/variables.scss) this removes any overwrites to existing Bootstrap styles by replacing the default variables BEFORE Bootstrap compiles its output
 
 ## Features
 * ES6 Javascript scripts process (linting, uglify, compression, concat)
