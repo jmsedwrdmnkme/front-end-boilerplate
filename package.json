@@ -41,7 +41,7 @@
     "gulp-sass": "latest",
     "gulp-sass-lint": "latest",
     "gulp-svg-sprite": "latest",
-    "gulp-to-ico": "^1.0.0",
+    "gulp-to-ico": "latest",
     "jquery": "latest",
     "jquery-lazy": "latest",
     "jshint": "latest",
