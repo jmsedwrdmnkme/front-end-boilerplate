@@ -104,7 +104,7 @@ function jslint() {
   return gulp
     .src([
       './src/js/*/js',
-      './gulpfile.js'
+      './gulpfile.babel.js'
     ], { allowEmpty: true })
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
