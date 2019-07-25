@@ -21,6 +21,9 @@
   ],
   "author": "James Monk",
   "license": "ISC",
+  "browserslist": [
+    "last 2 versions"
+  ],
   "devDependencies": {
     "@babel/core": "latest",
     "@babel/preset-env": "latest",

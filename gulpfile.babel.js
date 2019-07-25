@@ -106,10 +106,7 @@ function jslint() {
       './src/js/*/js',
       './gulpfile.babel.js'
     ], { allowEmpty: true })
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(browsersync.stream());
-}
+    .pipe(jshint()) .pipe(jshint.reporter(stylish)) .pipe(browsersync.stream()); }
 
 // CSS lint
 function csslint() {
@@ -118,8 +115,7 @@ function csslint() {
     .pipe(sasslint({'config': '.sass-lint.yml'}))
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
-    .pipe(browsersync.stream());
-}
+    .pipe(browsersync.stream()); }
 
 // JS lazyload modules
 function jslazyloadmodules() {
@@ -130,15 +126,14 @@ function jslazyloadmodules() {
     ], { allowEmpty: true })
     .pipe(ext('.mustache'))
     .pipe(gulp.dest('./src/mustache/partials/global/'))
-    .pipe(browsersync.stream());
-}
+    .pipe(browsersync.stream()); }
 
 // CSS critical
 function csscritical() {
   return gulp
     .src('./src/scss/critical.scss', { allowEmpty: true })
     .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(autoprefixer({browsers: ['last 2 versions']}))
+    .pipe(autoprefixer())
     .pipe(cleanCSS())
     .pipe(concat('css.scss'))
     .pipe(ext('.mustache'))
@@ -154,7 +149,7 @@ function cssnoncritical() {
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
     .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(autoprefixer({browsers: ['last 2 versions']}))
+    .pipe(autoprefixer())
     .pipe(cleanCSS())
     .pipe(gulp.dest('./dist/css/'))
     .pipe(browsersync.stream());
