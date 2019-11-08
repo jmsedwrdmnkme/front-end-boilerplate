@@ -13,7 +13,7 @@
   "keywords": [
     "html5",
     "css3",
-    "bootstrap",
+    "jquery",
     "frontend",
     "gulp",
     "node",
@@ -31,7 +31,6 @@
     "babel-core": "latest",
     "babel-polyfill": "latest",
     "babel-preset-env": "latest",
-    "bootstrap": "latest",
     "browser-sync": "latest",
     "fg-loadcss": "latest",
     "gulp-autoprefixer": "latest",
@@ -50,8 +49,7 @@
     "jshint": "latest",
     "jshint-stylish": "latest",
     "loadjs": "latest",
-    "node-sass": "latest",
-    "popper.js": "latest"
+    "node-sass": "latest"
   },
   "dependencies": {
     "del": "latest",
