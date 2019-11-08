@@ -1,1 +1,18 @@
+@import 'colors';
+@import 'maps';
 
+$font-size: 1rem;
+$font-color: color('text');
+$font-family: 'Open Sans Regular';
+$font-line-height: 1.4;
+
+$breakpoint-extra-small: 300px;
+$breakpoint-small: 480px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 980px;
+$breakpoint-extra-large: 1200px;
+
+$container-padding: 1rem;
+$flex-columns: 12;
+
+$icon-size: 2.5rem;

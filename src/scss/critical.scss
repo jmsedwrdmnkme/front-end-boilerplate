@@ -2,9 +2,13 @@
 //  Critical path CSS
 //
 
-@import './variables/variables';
+@import './variables/variables'; // Compiles all /variables/ folder files streamlined through this imported file
 
+@import '../../node_modules/normalize.css/normalize.css';
 @import './components/reset';
 @import './components/helpers';
+@import './components/icons';
+@import './components/typography';
+@import './components/containers';
 
 @import './partials/header';

@@ -2,8 +2,6 @@
 //  Non-critical path lazyloaded CSS
 //
 
-@import './variables/variables';
-
-@import './components/style';
+@import './variables/variables'; // Compiles all /variables/ folder files streamlined through this imported file
 
 @import './partials/footer';
