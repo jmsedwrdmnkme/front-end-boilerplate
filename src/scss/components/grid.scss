@@ -2,8 +2,10 @@
 //  Flexbox parent
 //
 [class*="flex"] {
-  margin-left: -#{$container-padding};
-  margin-right: -#{$container-padding};
+  @include breakpoint('sm') {
+    margin-left: -#{$container-padding};
+    margin-right: -#{$container-padding};
+  }
 
   @include breakpoint('sm') {
     display: flex;

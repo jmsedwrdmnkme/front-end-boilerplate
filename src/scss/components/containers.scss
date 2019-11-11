@@ -24,6 +24,13 @@
   }
 }
 
+#main {
+  .container {
+    padding-top: ($container-padding * 3);
+    padding-bottom: ($container-padding * 3);
+  }
+}
+
 //
 //  Text align
 //

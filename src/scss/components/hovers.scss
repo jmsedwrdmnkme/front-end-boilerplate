@@ -4,9 +4,17 @@
 a {
   transition: color 0.2s;
 
+  img {
+    transition: opacity 0.2s;
+  }
+
   &:hover,
   &:focus {
     color: color(orange);
+
+    img {
+      opacity: 0.75;
+    }
   }
 
   &:active,

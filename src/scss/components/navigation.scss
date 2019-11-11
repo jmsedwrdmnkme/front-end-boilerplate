@@ -4,7 +4,7 @@
 nav,
 .navigation,
 .nav-item {
-  @include breakpoint('md') {
+  @include breakpoint('sm') {
     display: flex;
   }
 }
