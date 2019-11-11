@@ -8,14 +8,3 @@
   }
   @return $color;
 }
-
-@function breakpoint($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    $color: map-get($breakpoints, $breakpoint);
-  } @else {
-    @if type-of($breakpoint) != breakpoint {
-      @error "Invalid breakpoint name: `#{$breakpoint}`.";
-    }
-  }
-  @return $breakpoint;
-}

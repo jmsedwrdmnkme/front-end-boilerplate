@@ -1,67 +1,42 @@
+//
+//  Container
+//
 .container {
-  width: 100%;
   padding-left: $container-padding;
   padding-right: $container-padding;
   margin-left: auto;
   margin-right: auto;
 
-  @media (max-width: calc(#{$breakpoint-small} - 1px)) {
+  @include breakpoint('xs') {
     width: 100%;
   }
 
-  @media (min-width: $breakpoint-small) and (max-width: calc(#{$breakpoint-medium} - 1px)) {
-    width: calc(#{$breakpoint-small});
+  @include breakpoint('sm') {
+    width: 768px;
   }
 
-  @media (min-width: $breakpoint-medium) and (max-width: calc(#{$breakpoint-large} - 1px)) {
-    width: calc(#{$breakpoint-medium});
+  @include breakpoint('md') {
+    width: 992px;
   }
 
-  @media (min-width: $breakpoint-large) and (max-width: calc(#{$breakpoint-extra-large} - 1px)) {
-    width: calc(#{$breakpoint-large});
-  }
-
-  @media (min-width: $breakpoint-extra-large) {
-    width: calc(#{$breakpoint-extra-large});
+  @include breakpoint('lg') {
+    width: 1200px;
   }
 }
 
-[class*="flex"] {
-  margin-left: -#{$container-padding};
-  margin-right: -#{$container-padding};
-
-  @media (min-width: $breakpoint-medium) {
-    display: flex;
-    flex-wrap: wrap;
-
-    &[class*="-center"] {
-      justify-content: center;
-    }
-
-    &[class*="-middle"] {
-      align-items: center;
-    }
+//
+//  Text align
+//
+.align {
+  &-left {
+    text-align: left;
   }
 
-  > * {
-    @media (min-width: $breakpoint-medium) {
-      padding-left: $container-padding;
-      padding-right: $container-padding;
-    }
+  &-center {
+    text-align: center;
   }
-}
 
-.col {
-  flex-grow: 1;
-
-  $colsTotal: $flex-columns;
-
-  @while $flex-columns > 0 {
-    &-#{$flex-columns} {
-      max-width: calc(calc(100% / #{$colsTotal}) * #{$flex-columns});
-      flex: 0 0 calc(calc(100% / #{$colsTotal}) * #{$flex-columns});
-    }
-
-    $flex-columns: $flex-columns - 1;
+  &-right {
+    text-align: right;
   }
 }

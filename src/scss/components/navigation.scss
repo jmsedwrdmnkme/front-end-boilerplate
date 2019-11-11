@@ -1,0 +1,22 @@
+//
+//  Opinionated defaults
+//
+nav,
+.navigation,
+.nav-item {
+  @include breakpoint('md') {
+    display: flex;
+  }
+}
+
+.navigation {
+  padding: 0;
+  list-style: none;
+  align-items: center;
+  width: 100%;
+}
+
+.nav-item {
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+}

@@ -1,5 +1,12 @@
+//
+//  Global defaults
+//
 .icon {
   width: $icon-size;
   height: $icon-size;
   fill: currentColor;
+}
+
+.icon-link {
+  text-decoration: none;
 }

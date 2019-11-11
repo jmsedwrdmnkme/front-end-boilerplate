@@ -1,0 +1,16 @@
+//
+//  Opinionated defaults
+//
+a {
+  transition: color 0.2s;
+
+  &:hover,
+  &:focus {
+    color: color(orange);
+  }
+
+  &:active,
+  &.active{
+    color: color(red);
+  }
+}
