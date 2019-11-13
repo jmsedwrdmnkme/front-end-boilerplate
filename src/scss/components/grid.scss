@@ -18,6 +18,10 @@
     &[class*="-middle"] {
       align-items: center;
     }
+
+    &[class*="-bottom"] {
+      align-items: end;
+    }
   }
 
   > * {

@@ -11,6 +11,16 @@ html {
   box-sizing: inherit;
 }
 
+* > * {
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 body,
 h1,
 h2,
