@@ -2,7 +2,7 @@
 Front end boilerplate using Bootstrap, brought in and kept up to date via Node package manager.
 
 ## Get started
-* git clone https://github.com/jmsedwrdmnk/front-end-boilerplate.git
+* git clone https://git.jamesmonk.me/James/front-end-boilerplate.git
 * cd front-end-boilerplate
 * npm install --save-dev
 * gulp
@@ -12,9 +12,9 @@ Front end boilerplate using Bootstrap, brought in and kept up to date via Node p
 ### Building
 Refer to (https://getbootstrap.com/docs/) plus further left-hand nav items found at this link.
 
-Bootstrap modules are controlled via [gulpfile.js for lazyloaded javascript modules](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/gulpfile.babel.js), [critical.scss inline styles](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/critical.scss) and [main.scss for lazyloaded styles](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/main.scss), for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
+Bootstrap modules are controlled via [gulpfile.js for lazyloaded javascript modules](https://git.jamesmonk.me/James/front-end-boilerplate/src/branch/master/gulpfile.babel.js), [critical.scss inline styles](https://git.jamesmonk.me/James/front-end-boilerplate/src/branch/master/src/scss/critical.scss) and [main.scss for lazyloaded styles](https://git.jamesmonk.me/James/front-end-boilerplate/src/branch/master/src/scss/main.scss), for scripts and styles, respectively. Try to minimise dependencies, if not used, to keep the project clean, mean and lean.
 
-Updates/Customisations to default Bootstrap styling to be appended within [variables.scss](https://github.com/jmsedwrdmnk/front-end-boilerplate/blob/master/src/scss/variables.scss) this removes any overwrites to existing Bootstrap styles by replacing the default variables BEFORE Bootstrap compiles its output
+Updates/Customisations to default Bootstrap styling to be appended within [variables.scss](https://git.jamesmonk.me/James/front-end-boilerplate/src/branch/master/src/scss/variables.scss) this removes any overwrites to existing Bootstrap styles by replacing the default variables BEFORE Bootstrap compiles its output
 
 ## Features
 * ES6 Javascript scripts process (linting, uglify, compression, concat)
@@ -33,6 +33,9 @@ Updates/Customisations to default Bootstrap styling to be appended within [varia
 * Critical path JS inline in document footer (increased load speed, less http round trips)
 * Favicon creation from supplied PNG (64x64, 32x32, 24x24 and 16x16 for cross device/browser output support)
 
+## In progress
+* Creating a Bootstrap-(and thus Popper)-less build by making a minimalist base CSS framework
+
 ## To do
+* Look into automatically generating critical path/page CSS solution
 * Update README with full process(es) and URLs etc, etc...
-* Look into minimising critical CSS from Bootstrap further
