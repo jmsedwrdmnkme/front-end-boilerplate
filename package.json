@@ -1,14 +1,14 @@
 {
-  "name": "boilerplate",
+  "name": "front-end-boilerplate",
   "version": "1.0.0",
-  "description": "We Are Tilt front end build boilerplate",
+  "description": "Front end build boilerplate",
   "main": "gulpfile.js",
   "scripts": {
     "test": "gulp"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/jmsedwrdmnk/front-end-boilerplate.git"
+    "url": "https://git.jamesmonk/james/front-end-boilerplate.git"
   },
   "keywords": [
     "html5",
@@ -55,6 +55,7 @@
   },
   "dependencies": {
     "del": "latest",
+    "npm": "latest",
     "gulp": "latest",
     "gulp-concat": "latest",
     "gulp-uglify": "latest"
