@@ -1,49 +1,26 @@
 //
-//  Container
+// Container widths and default padding
 //
+
 .container {
-  padding-left: $container-padding;
-  padding-right: $container-padding;
+  padding-left: 1rem;
+  padding-right: 1rem;
   margin-left: auto;
   margin-right: auto;
 
-  @include breakpoint('xs') {
+  @include breakpoint-up('xs') {
     width: 100%;
   }
 
-  @include breakpoint('sm') {
+  @include breakpoint-up('sm') {
     width: 768px;
   }
 
-  @include breakpoint('md') {
+  @include breakpoint-up('md') {
     width: 992px;
   }
 
-  @include breakpoint('lg') {
+  @include breakpoint-up('lg') {
     width: 1200px;
-  }
-}
-
-.main {
-  .container {
-    padding-top: ($container-padding * 3);
-    padding-bottom: ($container-padding * 3);
-  }
-}
-
-//
-//  Text align
-//
-.align {
-  &-left {
-    text-align: left;
-  }
-
-  &-center {
-    text-align: center;
-  }
-
-  &-right {
-    text-align: right;
   }
 }

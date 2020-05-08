@@ -1,6 +1,7 @@
 //
-//  Opinionated defaults
+// Hover transitions
 //
+
 a {
   transition: color 0.2s;
 
@@ -10,15 +11,8 @@ a {
 
   &:hover,
   &:focus {
-    color: color(orange);
-
     img {
       opacity: 0.75;
     }
-  }
-
-  &:active,
-  &.active{
-    color: color(red);
   }
 }

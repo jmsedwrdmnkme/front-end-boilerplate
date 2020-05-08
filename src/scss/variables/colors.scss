@@ -1,3 +1,15 @@
+//
+// Colour map and mixin
+//
+
+$colors: (
+  text: #222222,
+  red: #ff4136,
+  blue: #0074d9,
+  yellow: #ffdc00,
+  orange: #ff851b
+);
+
 @function color($color) {
   @if map-has-key($colors, $color) {
     $color: map-get($colors, $color);

@@ -2,16 +2,13 @@
 //  Critical path CSS
 //
 
-@import './variables/variables'; // Compiles all /variables/ folder files streamlined through this imported file
+// Mixins and maps
+@import './variables/breakpoints';
+@import './variables/colors';
 
-@import '../../node_modules/normalize.css/normalize.css';
-@import './components/reset';
-@import './components/helpers';
-@import './components/icons';
+
+// Components required critically
+@import '../../node_modules/modern-css-reset/src/reset';
 @import './components/typography';
-@import './components/grid';
+@import './components/helpers';
 @import './components/containers';
-@import './components/navigation';
-
-@import './partials/header';
-@import './partials/home-hero';

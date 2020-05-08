@@ -2,8 +2,9 @@
 //  Non-critical path lazyloaded CSS
 //
 
-@import './variables/variables'; // Compiles all /variables/ folder files streamlined through this imported file
+// Mixins and maps
+@import './variables/breakpoints';
+@import './variables/colors';
 
+// Components not required critically on load
 @import './components/hovers';
-
-@import './partials/footer';

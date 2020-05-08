@@ -1,0 +1,74 @@
+//
+// Breakpoint pixel sizes and mixins
+//
+
+$breakpoints: (
+  xs: 576px,
+  sm: 768px,
+  md: 992px,
+  lg: 1200px,
+  xl: 1440px
+);
+
+@function breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    $breakpoint: map-get($breakpoints, $breakpoint);
+  } @else {
+    @if type-of($breakpoint) != breakpoint {
+      @error "Invalid breakpoint name: `#{$breakpoint}`.";
+    }
+  }
+  @return $breakpoint;
+}
+
+@mixin breakpoint-down($class) {
+  @if $class == xs {
+    @media (max-width: calc(breakpoint('xs') - 1px)) { @content; }
+  }
+ 
+  @else if $class == sm {
+    @media (max-width: calc(breakpoint('sm') - 1px)) { @content; }
+  }
+ 
+  @else if $class == md {
+    @media (max-width: calc(breakpoint('md') - 1px)) { @content; }
+  }
+ 
+  @else if $class == lg {
+    @media (max-width: calc(breakpoint('lg') - 1px)) { @content; }
+  }
+
+  @else if $class == xl {
+    @media (max-width: calc(breakpoint('xl') - 1px)) { @content; }
+  }
+ 
+  @else {
+    @warn "Breakpoint mixin supports: xs, sm, md, lg";
+  }
+}
+
+@mixin breakpoint-up($class) {
+  @if $class == xs {
+    @media (min-width: breakpoint('xs')) { @content; }
+  }
+ 
+  @else if $class == sm {
+    @media (min-width: breakpoint('sm')) { @content; }
+  }
+ 
+  @else if $class == md {
+    @media (min-width: breakpoint('md')) { @content; }
+  }
+ 
+  @else if $class == lg {
+    @media (min-width: breakpoint('lg')) { @content; }
+  }
+
+  @else if $class == xl {
+    @media (min-width: breakpoint('xl')) { @content; }
+  }
+ 
+  @else {
+    @warn "Breakpoint mixin supports: xs, sm, md, lg";
+  }
+}

@@ -1,54 +1,8 @@
 //
-//  Global defaults
+// Container widths and default padding
 //
-html {
-  line-height: $font-line-height;
-  font-family: $font-family;
-  color: $font-color;
-  font-size: $font-size;
-}
 
-h1,
-h2,
-h3,
-h4 {
-  font-family: $font-family-heading;
-  font-weight: normal;
-}
-
-b,
-strong {
-  font-family: $font-family-bold;
-  font-weight: normal;
-}
-
-a {
-  color: color(blue);
-}
-
-//
-//  Titles
-//
-[class*="title"] {
-  margin-top: 0;
-  line-height: 1.1;
-
-  &[class*="-large"] {
-    font-size: 3rem;
-  }
-
-  &[class*="-medium"] {
-    font-size: 2.25rem;
-  }
-
-  &[class*="-small"] {
-    font-size: 1.5rem;
-  }
-}
-
-//
-//  Text transforms
-//
-.text-uppercase {
-  text-transform: uppercase;
+// Native font stack
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
