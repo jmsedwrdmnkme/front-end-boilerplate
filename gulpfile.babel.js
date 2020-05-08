@@ -1,8 +1,8 @@
 'use strict';
 
-/*
- *  Packages
- */
+//
+// Packages
+//
 
 const gulp = require('gulp');
 const del = require('del');
@@ -22,84 +22,20 @@ const concat = require('gulp-concat');
 const mustache = require("gulp-mustache");
 const browsersync = require('browser-sync').create();
 
-/*
- *  Processes
- */
+
+//
+// Processes
+//
 
 // Clean
 function clean() {
   return del('./dist');
 }
 
-// Favicon
-function favicon() {
-  return gulp
-    .src('./src/favicon/favicon.png', { allowEmpty: true })
-    .pipe(ico('favicon.ico', { resize: true, sizes: [16, 24, 32, 64] }))
-    .pipe(gulp.dest('./dist/'))
-    .pipe(browsersync.stream());
-}
+//
+// JS
+//
 
-// Sprite
-function sprite() {
-  return gulp
-    .src('./src/sprite/**/**/*.svg', { allowEmpty: true })
-    .pipe(
-      svgsprite({
-        shape: {
-          spacing: {
-            padding: 5
-          }
-        },
-        mode: {
-          symbol: true
-        },
-        svg: {
-          xmlDeclaration: false,
-          doctypeDeclaration: false,
-          namespaceIDs: false,
-          namespaceClassnames: false
-        }
-      })
-    )
-    .pipe(concat('sprite.mustache'))
-    .pipe(gulp.dest('./src/mustache/partials/global/'))
-    .pipe(browsersync.stream());
-}
-
-// Fonts
-function fonts() {
-  return gulp
-    .src('./src/fonts/*.scss', { allowEmpty: true })
-    .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(gulp.dest('./dist/css/'))
-    .pipe(browsersync.stream());
-}
-
-// Images
-function images() {
-  return gulp
-    .src('./src/img/**/**/*', { allowEmpty: true })
-    .pipe(
-      imagemin([
-        imagemin.gifsicle({ interlaced: true }),
-        imagemin.mozjpeg({ quality: 80, progressive: true }),
-        imagemin.optipng({ optimizationLevel: 5 }),
-        imagemin.svgo({
-          plugins: [
-            {
-              removeViewBox: false,
-              collapseGroups: true
-            }
-          ]
-        })
-      ])
-    )
-    .pipe(gulp.dest('./dist/img/'))
-    .pipe(browsersync.stream());
-}
-
-// JS lint
 function jslint() {
   return gulp
     .src([
@@ -108,16 +44,6 @@ function jslint() {
     ], { allowEmpty: true })
     .pipe(jshint()) .pipe(jshint.reporter(stylish)) .pipe(browsersync.stream()); }
 
-// CSS lint
-function csslint() {
-  return gulp
-    .src('./src/scss/*.scss', { allowEmpty: true })
-    .pipe(sasslint({'config': '.sass-lint.yml'}))
-    .pipe(sasslint.format())
-    .pipe(sasslint.failOnError())
-    .pipe(browsersync.stream()); }
-
-// JS lazyload modules
 function jslazyloadmodules() {
   return gulp
     .src([
@@ -128,34 +54,6 @@ function jslazyloadmodules() {
     .pipe(gulp.dest('./src/mustache/partials/global/'))
     .pipe(browsersync.stream()); }
 
-// CSS critical
-function csscritical() {
-  return gulp
-    .src('./src/scss/critical.scss', { allowEmpty: true })
-    .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(autoprefixer())
-    .pipe(cleanCSS())
-    .pipe(concat('css.scss'))
-    .pipe(ext('.mustache'))
-    .pipe(gulp.dest('./src/mustache/partials/global/'))
-    .pipe(browsersync.stream());
-}
-
-// CSS non critical
-function cssnoncritical() {
-  return gulp
-    .src('./src/scss/main.scss', { allowEmpty: true })
-    .pipe(sasslint({'config': '.sass-lint.yml'}))
-    .pipe(sasslint.format())
-    .pipe(sasslint.failOnError())
-    .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(autoprefixer())
-    .pipe(cleanCSS())
-    .pipe(gulp.dest('./dist/css/'))
-    .pipe(browsersync.stream());
-}
-
-// JS critical
 function jscritical() {
   return gulp
     .src('./src/js/critical.js', { allowEmpty: true })
@@ -183,15 +81,9 @@ function jscritical() {
     .pipe(browsersync.stream());
 }
 
-// JS non-critical
 function jsnoncritical() {
   return gulp
-    .src([
-      './node_modules/jquery/dist/jquery.slim.js',
-      './node_modules/jquery-lazy/jquery.lazy.js',
-      './node_modules/jquery-lazy/jquery.lazy.plugins.js',
-      './src/js/main.js'
-    ], { allowEmpty: true })
+    .src(['./src/js/main.js', './node_modules/vanilla-lazyload/dist/lazyload.js'], { allowEmpty: true })
     .pipe(
       babel({
         presets: ['@babel/env'],
@@ -219,6 +111,110 @@ function jsnoncritical() {
     .pipe(browsersync.stream());
 }
 
+
+//
+// CSS
+//
+
+function csslint() {
+  return gulp
+    .src('./src/scss/*.scss', { allowEmpty: true })
+    .pipe(sasslint({'config': '.sass-lint.yml'}))
+    .pipe(sasslint.format())
+    .pipe(sasslint.failOnError())
+    .pipe(browsersync.stream()); }
+
+function csscritical() {
+  return gulp
+    .src('./src/scss/critical.scss', { allowEmpty: true })
+    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(autoprefixer())
+    .pipe(cleanCSS())
+    .pipe(concat('css.scss'))
+    .pipe(ext('.mustache'))
+    .pipe(gulp.dest('./src/mustache/partials/global/'))
+    .pipe(browsersync.stream());
+}
+
+function cssnoncritical() {
+  return gulp
+    .src('./src/scss/main.scss', { allowEmpty: true })
+    .pipe(sasslint({'config': '.sass-lint.yml'}))
+    .pipe(sasslint.format())
+    .pipe(sasslint.failOnError())
+    .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(autoprefixer())
+    .pipe(cleanCSS())
+    .pipe(gulp.dest('./dist/css/'))
+    .pipe(browsersync.stream());
+}
+
+
+//
+// Assets
+//
+
+function favicon() {
+  return gulp
+    .src('./src/favicon/favicon.png', { allowEmpty: true })
+    .pipe(ico('favicon.ico', { resize: true, sizes: [16, 24, 32, 64] }))
+    .pipe(gulp.dest('./dist/'))
+    .pipe(browsersync.stream());
+}
+
+function sprite() {
+  return gulp
+    .src('./src/sprite/**/**/*.svg', { allowEmpty: true })
+    .pipe(
+      svgsprite({
+        shape: {
+          spacing: {
+            padding: 5
+          }
+        },
+        mode: {
+          symbol: true
+        },
+        svg: {
+          xmlDeclaration: false,
+          doctypeDeclaration: false,
+          namespaceIDs: false,
+          namespaceClassnames: false
+        }
+      })
+    )
+    .pipe(concat('sprite.mustache'))
+    .pipe(gulp.dest('./src/mustache/partials/global/'))
+    .pipe(browsersync.stream());
+}
+
+function images() {
+  return gulp
+    .src('./src/img/**/**/*', { allowEmpty: true })
+    .pipe(
+      imagemin([
+        imagemin.gifsicle({ interlaced: true }),
+        imagemin.mozjpeg({ quality: 80, progressive: true }),
+        imagemin.optipng({ optimizationLevel: 5 }),
+        imagemin.svgo({
+          plugins: [
+            {
+              removeViewBox: false,
+              collapseGroups: true
+            }
+          ]
+        })
+      ])
+    )
+    .pipe(gulp.dest('./dist/img/'))
+    .pipe(browsersync.stream());
+}
+
+
+//
+// HTML
+//
+
 // HTML
 function html() {
   return gulp
@@ -230,6 +226,11 @@ function html() {
     .pipe(gulp.dest('./dist/'))
     .pipe(browsersync.stream());
 }
+
+
+//
+// Testing environment
+//
 
 // BrowserSync
 function browserSync(done) {
@@ -247,9 +248,10 @@ function browserSyncReload(done) {
   done();
 }
 
-/*
- * Watch
- */
+
+//
+// Watch and build scripts
+//
 
 const watch =
   gulp.series(
@@ -257,7 +259,6 @@ const watch =
     gulp.parallel(
       favicon,
       sprite,
-      fonts,
       images,
       jslint,
       csslint
@@ -292,7 +293,6 @@ const jswatch =
 
 function watchFiles() {
   gulp.watch('./src/scss/**/**/*.scss', csswatch);
-  gulp.watch('./src/fonts/*.scss', fonts);
   gulp.watch('./src/favicon/*', favicon);
   gulp.watch('./src/js/**/*.js', jswatch);
   gulp.watch('./src/sprite/**/**/*.svg', sprite);
@@ -300,8 +300,9 @@ function watchFiles() {
   gulp.watch('./src/img/**/**/*', images);
 }
 
-/*
- *  Export tasks
- */
+
+//
+// Export tasks
+//
 
 exports.default = watch;

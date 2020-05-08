@@ -1,7 +1,8 @@
 //
-//  Jquery Lazy - Lazyload of images
+// Lazyload imagery
 //
-
-$(function($) {
-  $('img:not(.loaded)').Lazy();
-});
+window.onload = function() {
+  var lazyLoadInstance = new LazyLoad({
+    elements_selector: 'img:not(.loaded)'
+  });
+}
