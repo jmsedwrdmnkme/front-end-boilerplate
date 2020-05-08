@@ -1,8 +1,38 @@
 # front-end-boilerplate
+Minimal front end boilerplate, kept up to date via Node package manager.
 
-## Branch information
-New branch using vanilla javascript over JQuery and now also forgoing pre-frameworking for CSS... what's the point of the bloat when you can code fast?! ;)
+## Get started
+* git clone https://git.jamesmonk.me/James/front-end-boilerplate.git
+* cd front-end-boilerplate
+* npm install --save-dev
+* gulp
+* Start building!
 
-Also removal of font functionality, because native font stacks are COOL and FAST.
+## Features
 
-ALSO, also removed Swiper and a lot of optional modules/frameworks that are going to be project specific, I want this LEAN as a BEAN to start with. Obviously, these optional modules are good as add ons to this core IF needed.
+### Javascript
+* Fully vanilla, no frameworks here!
+* ES6 Javascript scripts process (linting, uglify, compression, concat) with backwards compatibility thanks to Babel
+* Critical path JS inline in document footer (increased load speed, less http round trips)
+* Lazyloading of non-critical JS files (loadJS, loads after initial paint)
+
+### CSS
+* Minimal modern CSS reset (no huge bloat for those extremely app specifc rare edge cases, as with Normalize.css)
+* SASS styles process (linting, compression, autoprefixing, concat, loading of modules)
+* Critical path CSS inline in document head (increased load speed, less http round trips)
+* Lazyloading of non-critical CSS files (loadCSS, loads after initial paint)
+
+### Assets
+* Mustache HTML templating process (featuring partials)
+* Imagemin IMG process (image optimisation and SVG minification)
+* SVG icon sprite (generated inline from SVG assets)
+* Favicon creation from supplied PNG (64x64, 32x32, 24x24 and 16x16 for cross device/browser output support)
+* BrowserSync process (auto reload on file save/update)
+
+## To do
+* Look into automatically generating critical path/page CSS solution rather than having to manually control, although this has it's benefits(!).
+
+## Extending
+Recommended plugins/things for extending functionality IF/WHERE needed, only (let's keep this lean, OK?!):-
+
+* Swiper - for carousels
