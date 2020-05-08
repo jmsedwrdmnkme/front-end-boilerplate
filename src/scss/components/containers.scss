@@ -8,19 +8,23 @@
   margin-left: auto;
   margin-right: auto;
 
-  @include breakpoint-up('xs') {
+  @include breakpoint-down('xs') {
     width: 100%;
   }
 
+  @include breakpoint-up('xs') {
+    width: breakpoint('xs');
+  }
+
   @include breakpoint-up('sm') {
-    width: 768px;
+    width: breakpoint('sm');
   }
 
   @include breakpoint-up('md') {
-    width: 992px;
+    width: breakpoint('md');
   }
 
   @include breakpoint-up('lg') {
-    width: 1200px;
+    width: breakpoint('lg');
   }
 }
