@@ -9,8 +9,7 @@
 
   <style>{{> ./global/css }}</style>
 
-  <link rel="preload" href="/css/main.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <script>{{> ./global/cssrelpreload.min.mustache }}</script>
+  <link rel="stylesheet" href="/css/main.css" media="print" onload="this.media='all'; this.onload=null;">
 </head>
 <body>
 
