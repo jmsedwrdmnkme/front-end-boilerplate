@@ -47,8 +47,7 @@ function jslint() {
 function jslazyloadmodules() {
   return gulp
     .src([
-      './node_modules/loadjs/dist/loadjs.min.js',
-      './node_modules/fg-loadcss/dist/cssrelpreload.min.js'
+      './node_modules/loadjs/dist/loadjs.min.js'
     ], { allowEmpty: true })
     .pipe(ext('.mustache'))
     .pipe(gulp.dest('./src/mustache/partials/global/'))
@@ -83,7 +82,11 @@ function jscritical() {
 
 function jsnoncritical() {
   return gulp
-    .src(['./src/js/main.js', './node_modules/vanilla-lazyload/dist/lazyload.js'], { allowEmpty: true })
+    .src([
+      './src/js/main.js',
+      './node_modules/fg-loadcss/dist/loadCSS.js',
+      './node_modules/vanilla-lazyload/dist/lazyload.js'
+    ], { allowEmpty: true })
     .pipe(
       babel({
         presets: ['@babel/env'],
