@@ -142,9 +142,6 @@ function csscritical() {
 function cssnoncritical() {
   return gulp
     .src('./src/scss/main.scss', { allowEmpty: true })
-    .pipe(sasslint({'config': '.sass-lint.yml'}))
-    .pipe(sasslint.format())
-    .pipe(sasslint.failOnError())
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(autoprefixer())
     .pipe(cleanCSS())
