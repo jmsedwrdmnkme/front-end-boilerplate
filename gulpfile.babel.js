@@ -122,7 +122,7 @@ function jsnoncritical() {
 function csslint() {
   return gulp
     .src('./src/scss/*.scss', { allowEmpty: true })
-    .pipe(sasslint({'config': '.sass-lint.yml'}))
+    .pipe(sasslint({'configFile': '.sass-lint.yml'}))
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
     .pipe(browsersync.stream()); }
