@@ -6,7 +6,6 @@
 
 const gulp = require('gulp');
 const del = require('del');
-const ico = require('gulp-to-ico');
 const svgsprite = require('gulp-svg-sprite');
 const imagemin = require('gulp-imagemin');
 const jshint = require('gulp-jshint');
@@ -20,8 +19,8 @@ const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 const mustache = require("gulp-mustache");
+const favicon = require('gulp-base64-favicon');
 const browsersync = require('browser-sync').create();
-
 
 //
 // Processes
@@ -154,14 +153,6 @@ function cssnoncritical() {
 // Assets
 //
 
-function favicon() {
-  return gulp
-    .src('./src/favicon/favicon.png', { allowEmpty: true })
-    .pipe(ico('favicon.ico', { resize: true, sizes: [16, 24, 32, 64] }))
-    .pipe(gulp.dest('./dist/'))
-    .pipe(browsersync.stream());
-}
-
 function sprite() {
   return gulp
     .src('./src/sprite/**/**/*.svg', { allowEmpty: true })
@@ -219,10 +210,9 @@ function images() {
 function html() {
   return gulp
     .src('./src/mustache/*.mustache', { allowEmpty: true })
-    .pipe(
-      mustache()
-    )
+    .pipe(mustache())
     .pipe(ext('.html'))
+    .pipe(favicon())
     .pipe(gulp.dest('./dist/'))
     .pipe(browsersync.stream());
 }
@@ -257,7 +247,6 @@ const watch =
   gulp.series(
     clean,
     gulp.parallel(
-      favicon,
       sprite,
       images,
       jslint,
@@ -293,7 +282,6 @@ const jswatch =
 
 function watchFiles() {
   gulp.watch('./src/scss/**/**/*.scss', csswatch);
-  gulp.watch('./src/favicon/*', favicon);
   gulp.watch('./src/js/**/*.js', jswatch);
   gulp.watch('./src/sprite/**/**/*.svg', sprite);
   gulp.watch('./src/mustache/**/**/**/*.mustache', html);
