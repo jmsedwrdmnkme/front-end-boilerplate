@@ -10,10 +10,10 @@
     "last 2 versions"
   ],
   "devDependencies": {
-    "@babel/core": "^7.9.6",
-    "@babel/preset-env": "^7.9.6",
+    "@babel/core": "^7.11.0",
+    "@babel/preset-env": "^7.11.0",
     "babel-register": "^6.26.0",
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.26.12",
     "del": "^5.1.0",
     "fg-loadcss": "^3.1.0",
     "gulp": "^4.0.2",
@@ -31,12 +31,12 @@
     "gulp-svg-sprite": "^1.5.0",
     "gulp-uglify": "^3.0.2",
     "gulp-util": "^3.0.8",
-    "jshint": "^2.11.0",
+    "jshint": "^2.11.2",
     "jshint-stylish": "^2.2.1",
     "loadjs": "^4.2.0",
-    "modern-css-reset": "^1.1.0",
+    "modern-css-reset": "^1.1.1",
     "node-sass": "^4.14.1",
-    "npm": "^6.14.5",
+    "npm": "^6.14.7",
     "vanilla-lazyload": "^17.1.0"
   }
 }
