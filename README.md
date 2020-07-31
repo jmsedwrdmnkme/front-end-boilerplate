@@ -1,6 +1,13 @@
 # front-end-boilerplate
 Minimal front end boilerplate, kept up to date via Node package manager.
 
+Will play nice(st) with the latest versions of modern browsers:-
+* IE11
+* Edge
+* Firefox
+* Chromium
+* Safari
+
 ## Get started
 * git clone https://git.jamesmonk.me/James/front-end-boilerplate.git
 * cd front-end-boilerplate
@@ -26,7 +33,7 @@ Minimal front end boilerplate, kept up to date via Node package manager.
 * Mustache HTML templating process (featuring partials)
 * Imagemin IMG process (image optimisation and SVG minification)
 * SVG icon sprite (generated inline from SVG assets)
-* Favicon creation from supplied PNG (64x64, 32x32, 24x24 and 16x16 for cross device/browser output support)
+* Favicon creation from supplied PNG, base64 encoded inline to remove additional HTTP request
 * BrowserSync process (auto reload on file save/update)
 
 ## To do
