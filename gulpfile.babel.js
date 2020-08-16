@@ -41,7 +41,10 @@ function jslint() {
       './src/js/*/js',
       './gulpfile.babel.js'
     ], { allowEmpty: true })
-    .pipe(jshint()) .pipe(jshint.reporter(stylish)) .pipe(browsersync.stream()); }
+    .pipe(jshint())
+    .pipe(jshint.reporter(stylish))
+    .pipe(browsersync.stream());
+}
 
 function jslazyloadmodules() {
   return gulp
@@ -50,7 +53,8 @@ function jslazyloadmodules() {
     ], { allowEmpty: true })
     .pipe(ext('.mustache'))
     .pipe(gulp.dest('./src/mustache/partials/global/'))
-    .pipe(browsersync.stream()); }
+    .pipe(browsersync.stream());
+}
 
 function jscritical() {
   return gulp
@@ -124,7 +128,8 @@ function csslint() {
     .pipe(sasslint({'configFile': '.sass-lint.yml'}))
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
-    .pipe(browsersync.stream()); }
+    .pipe(browsersync.stream());
+}
 
 function csscritical() {
   return gulp
