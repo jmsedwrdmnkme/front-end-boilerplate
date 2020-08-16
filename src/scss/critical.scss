@@ -2,12 +2,14 @@
 //  Critical path CSS
 //
 
+@import
+
 // Mixins and maps
-@import './variables/breakpoints';
-@import './variables/colors';
+'./variables/breakpoints',
+'./variables/colors',
 
 // Components required critically
-@import '../../node_modules/modern-css-reset/src/reset';
-@import './components/typography';
-@import './components/helpers';
-@import './components/containers';
+'../../node_modules/modern-css-reset/src/reset',
+'./components/typography',
+'./components/helpers',
+'./components/containers';

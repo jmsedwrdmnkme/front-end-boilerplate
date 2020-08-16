@@ -2,9 +2,11 @@
 //  Non-critical path lazyloaded CSS
 //
 
+@import
+
 // Mixins and maps
-@import './variables/breakpoints';
-@import './variables/colors';
+'./variables/breakpoints',
+'./variables/colors',
 
 // Components not required critically on load
-@import './components/hovers';
+'./components/hovers';
