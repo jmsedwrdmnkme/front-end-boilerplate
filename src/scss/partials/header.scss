@@ -6,7 +6,7 @@ header {
 }
 
 // Responsive nav
-@include breakpoint-down(md) {
+@include breakpoint-down(sm) {
   .nav-label {
     padding: 0.375rem 0.674rem;
     transform: rotate(90deg);

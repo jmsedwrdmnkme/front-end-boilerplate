@@ -125,7 +125,7 @@ function jsnoncritical() {
 function csslint() {
   return gulp
     .src('./src/scss/*.scss', { allowEmpty: true })
-    .pipe(sasslint({'configFile': '.sass-lint.yml'}))
+    .pipe(sasslint({'configFile': './.sass-lint.yml'}))
     .pipe(sasslint.format())
     .pipe(sasslint.failOnError())
     .pipe(browsersync.stream());
@@ -214,7 +214,13 @@ function images() {
 // HTML
 function html() {
   return gulp
-    .src('./src/mustache/*.mustache', { allowEmpty: true })
+    .src([
+      './src/mustache/**/*.mustache',
+      '!./src/mustache/partials/global/css.mustache',
+      '!./src/mustache/partials/global/js.mustache',
+      '!./src/mustache/partials/global/loadjs.min.mustache',
+      '!./src/mustache/partials/global/sprite.mustache'
+    ], { allowEmpty: true })
     .pipe(mustache())
     .pipe(ext('.html'))
     .pipe(favicon())
