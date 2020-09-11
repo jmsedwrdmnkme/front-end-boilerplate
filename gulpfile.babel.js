@@ -214,13 +214,7 @@ function images() {
 // HTML
 function html() {
   return gulp
-    .src([
-      './src/mustache/**/*.mustache',
-      '!./src/mustache/partials/global/css.mustache',
-      '!./src/mustache/partials/global/js.mustache',
-      '!./src/mustache/partials/global/loadjs.min.mustache',
-      '!./src/mustache/partials/global/sprite.mustache'
-    ], { allowEmpty: true })
+    .src('./src/mustache/*.mustache', { allowEmpty: true })
     .pipe(mustache())
     .pipe(ext('.html'))
     .pipe(favicon())
@@ -292,11 +286,11 @@ const jswatch =
   );
 
 function watchFiles() {
-  gulp.watch('./src/scss/**/**/*.scss', csswatch);
+  gulp.watch('./src/scss/**/*.scss', csswatch);
   gulp.watch('./src/js/**/*.js', jswatch);
-  gulp.watch('./src/sprite/**/**/*.svg', sprite);
-  gulp.watch('./src/mustache/**/**/**/*.mustache', html);
-  gulp.watch('./src/img/**/**/*', images);
+  gulp.watch('./src/sprite/**/*.svg', sprite);
+  gulp.watch('./src/mustache/**/*.mustache', html);
+  gulp.watch('./src/img/**/*', images);
 }
 
 
