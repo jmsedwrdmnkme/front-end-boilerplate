@@ -23,23 +23,23 @@ $breakpoints: (
 
 @mixin breakpoint-down($class) {
   @if $class == xs {
-    @media (max-width: calc(#{breakpoint('xs')} - 1px)) { @content; }
+    @media (max-width: calc(#{breakpoint('xs')} - 0.02px)) { @content; }
   }
  
   @else if $class == sm {
-    @media (max-width: calc(#{breakpoint('sm')} - 1px)) { @content; }
+    @media (max-width: calc(#{breakpoint('sm')} - 0.02px)) { @content; }
   }
  
   @else if $class == md {
-    @media (max-width: calc(#{breakpoint('md')} - 1px)) { @content; }
+    @media (max-width: calc(#{breakpoint('md')} - 0.02px)) { @content; }
   }
  
   @else if $class == lg {
-    @media (max-width: calc(#{breakpoint('lg')} - 1px)) { @content; }
+    @media (max-width: calc(#{breakpoint('lg')} - 0.02px)) { @content; }
   }
 
   @else if $class == xl {
-    @media (max-width: calc(#{breakpoint('xl')} - 1px)) { @content; }
+    @media (max-width: calc(#{breakpoint('xl')} - 0.02px)) { @content; }
   }
  
   @else {

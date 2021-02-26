@@ -19,11 +19,11 @@
 
   &[class*=main] {
     flex: 62.8%;
-    flex-basis: 29.376rem; // Golden ratio at >= 768px
+    flex-basis: (1024rem * 0.628 / 17); // Golden ratio at >= 992px
   }
   
   &[class*=aside] {
     flex: 38.2%;
-    flex-basis: 18.624rem; // Golden ratio at >= 768px
+    flex-basis: (1024rem * 0.382 / 17); // Golden ratio at >= 992px
   }
 }

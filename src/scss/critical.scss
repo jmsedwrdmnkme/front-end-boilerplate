@@ -9,11 +9,11 @@
 './variables/colors',
 
 // Components required critically
-'./partials/header',
-
-// Components required critically
 '../../node_modules/modern-css-reset/src/reset',
 './components/typography',
 './components/helpers',
 './components/containers',
-'./components/flex';
+'./components/flex',
+
+// Partials required critically
+'./partials/header';

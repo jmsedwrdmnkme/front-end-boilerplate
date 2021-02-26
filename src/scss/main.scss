@@ -8,8 +8,8 @@
 './variables/breakpoints',
 './variables/colors',
 
-// Partials required critically
-'./partials/nav',
-
 // Components not required critically on load
-'./components/hovers';
+'./components/hovers',
+
+// Partial not required critically on load
+'./partials/nav';
