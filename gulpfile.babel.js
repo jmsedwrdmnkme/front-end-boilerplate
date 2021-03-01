@@ -18,7 +18,7 @@ const ext = require('gulp-ext-replace');
 const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
-const mustache = require("gulp-mustache");
+const hb = require('gulp-hb');
 const favicon = require('gulp-base64-favicon');
 const browsersync = require('browser-sync').create();
 
@@ -51,8 +51,8 @@ function jslazyloadmodules() {
     .src([
       './node_modules/loadjs/dist/loadjs.min.js'
     ], { allowEmpty: true })
-    .pipe(ext('.mustache'))
-    .pipe(gulp.dest('./src/mustache/partials/global/'))
+    .pipe(ext('.hbs'))
+    .pipe(gulp.dest('./src/html/partials/global/'))
     .pipe(browsersync.stream());
 }
 
@@ -78,8 +78,8 @@ function jscritical() {
       }}
     ))
     .pipe(concat('js.js'))
-    .pipe(ext('.mustache'))
-    .pipe(gulp.dest('./src/mustache/partials/global/'))
+    .pipe(ext('.hbs'))
+    .pipe(gulp.dest('./src/html/partials/global/'))
     .pipe(browsersync.stream());
 }
 
@@ -138,8 +138,8 @@ function csscritical() {
     .pipe(autoprefixer())
     .pipe(cleanCSS())
     .pipe(concat('css.scss'))
-    .pipe(ext('.mustache'))
-    .pipe(gulp.dest('./src/mustache/partials/global/'))
+    .pipe(ext('.hbs'))
+    .pipe(gulp.dest('./src/html/partials/global/'))
     .pipe(browsersync.stream());
 }
 
@@ -179,8 +179,8 @@ function sprite() {
         }
       })
     )
-    .pipe(concat('sprite.mustache'))
-    .pipe(gulp.dest('./src/mustache/partials/global/'))
+    .pipe(concat('sprite.hbs'))
+    .pipe(gulp.dest('./src/html/partials/global/'))
     .pipe(browsersync.stream());
 }
 
@@ -214,8 +214,10 @@ function images() {
 // HTML
 function html() {
   return gulp
-    .src('./src/mustache/*.mustache', { allowEmpty: true })
-    .pipe(mustache())
+    .src('./src/html/*.hbs')
+    .pipe(hb()
+      .partials('./src/html/partials/**/*.hbs')
+    )
     .pipe(ext('.html'))
     .pipe(favicon())
     .pipe(gulp.dest('./dist/'))
@@ -289,7 +291,7 @@ function watchFiles() {
   gulp.watch('./src/scss/**/*.scss', csswatch);
   gulp.watch('./src/js/**/*.js', jswatch);
   gulp.watch('./src/sprite/**/*.svg', sprite);
-  gulp.watch('./src/mustache/**/*.mustache', html);
+  gulp.watch('./src/html/**/*.hbs', html);
   gulp.watch('./src/img/**/*', images);
 }
 
