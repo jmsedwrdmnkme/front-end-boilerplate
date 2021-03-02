@@ -89,6 +89,18 @@ function jscritical() {
 function jsnoncritical() {
   return gulp
     .src([
+      './node_modules/popper.js/dist/umd/popper.js',
+      './node_modules/bootstrap/js/dist/alert',
+      './node_modules/bootstrap/js/dist/button',
+      './node_modules/bootstrap/js/dist/carousel',
+      './node_modules/bootstrap/js/dist/collapse',
+      './node_modules/bootstrap/js/dist/dropdown',
+      './node_modules/bootstrap/js/dist/modal',
+      './node_modules/bootstrap/js/dist/popover',
+      './node_modules/bootstrap/js/dist/scrollspy',
+      './node_modules/bootstrap/js/dist/tab',
+      './node_modules/bootstrap/js/dist/toast',
+      './node_modules/bootstrap/js/dist/tooltip',
       './src/js/main.js',
       './node_modules/fg-loadcss/dist/loadCSS.js',
       './node_modules/vanilla-lazyload/dist/lazyload.js'

@@ -2,9 +2,11 @@
 //  Non-critical path lazyloaded CSS
 //
 
+// Variables override
+@import 'variables/custom';
+
 // Configuration
 @import '../../node_modules/bootstrap/scss/functions';
-@import 'variables/custom'; // Custom varible overrides
 @import '../../node_modules/bootstrap/scss/variables';
 @import '../../node_modules/bootstrap/scss/mixins';
 @import '../../node_modules/bootstrap/scss/utilities';
