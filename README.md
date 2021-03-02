@@ -37,3 +37,6 @@ Will play nice(st) with the latest versions of modern browsers:-
 * SVG icon sprite (generated inline from SVG assets)
 * Favicon creation from supplied PNG, base64 encoded inline to remove additional HTTP request
 * BrowserSync process (auto reload on file save/update)
+
+## To do
+* Revisit the gulp processing, needs reordering and tidying up to fully incorporate the Critical package browsersync and compilation.
