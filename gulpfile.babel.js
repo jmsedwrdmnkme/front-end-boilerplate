@@ -21,6 +21,9 @@ const concat = require('gulp-concat');
 const hb = require('gulp-hb');
 const favicon = require('gulp-base64-favicon');
 const browsersync = require('browser-sync').create();
+const purgecss = require('gulp-purgecss');
+const critical = require('critical').stream;
+
 
 //
 // Processes
@@ -131,25 +134,35 @@ function csslint() {
     .pipe(browsersync.stream());
 }
 
-function csscritical() {
-  return gulp
-    .src('./src/scss/critical.scss', { allowEmpty: true })
-    .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(autoprefixer())
-    .pipe(cleanCSS())
-    .pipe(concat('css.scss'))
-    .pipe(ext('.hbs'))
-    .pipe(gulp.dest('./src/html/partials/global/'))
-    .pipe(browsersync.stream());
-}
-
 function cssnoncritical() {
   return gulp
     .src('./src/scss/main.scss', { allowEmpty: true })
     .pipe(sass({outputStyle: 'compressed'}))
+    .pipe(purgecss({
+      content: ['./dist/*.html']
+    }))
     .pipe(autoprefixer())
     .pipe(cleanCSS())
     .pipe(gulp.dest('./dist/css/'))
+    .pipe(browsersync.stream());
+}
+
+function csscritical() {
+  return gulp
+    .src('./dist/*.html')
+    .pipe(
+      critical({
+        base: './dist/',
+        inline: false,
+        css: ['./dist/css/main.css'],
+      })
+    )
+    .on('error', err => {
+      log.error(err.message);
+    })
+    .pipe(concat('css.css'))
+    .pipe(ext('.hbs'))
+    .pipe(gulp.dest('./src/html/partials/global/'))
     .pipe(browsersync.stream());
 }
 
@@ -259,12 +272,13 @@ const watch =
       jslint,
       csslint
     ),
+    html,
     gulp.parallel(
-      csscritical,
       cssnoncritical,
       jscritical,
       jsnoncritical
     ),
+    csscritical,
     jslazyloadmodules,
     html,
     browserSync,
@@ -274,8 +288,9 @@ const watch =
 const csswatch =
   gulp.series(
     csslint,
-    csscritical,
     cssnoncritical,
+    html,
+    csscritical,
     html
   );
 
