@@ -15,7 +15,6 @@ const sass = require('gulp-sass');
 const autoprefixer = require('gulp-autoprefixer');
 const sasslint = require('gulp-sass-lint');
 const ext = require('gulp-ext-replace');
-const babel = require('gulp-babel');
 const uglify = require('gulp-uglify');
 const concat = require('gulp-concat');
 const hb = require('gulp-hb');
@@ -23,7 +22,6 @@ const favicon = require('gulp-base64-favicon');
 const browsersync = require('browser-sync').create();
 const purgecss = require('gulp-purgecss');
 const critical = require('critical').stream;
-const log = require('fancy-log');
 
 
 //
@@ -43,7 +41,7 @@ function jslint() {
   return gulp
     .src([
       './src/js/*/js',
-      './gulpfile.babel.js'
+      './gulpfile.js'
     ], { allowEmpty: true })
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
@@ -63,11 +61,6 @@ function jslazyloadmodules() {
 function jscritical() {
   return gulp
     .src('./src/js/critical.js', { allowEmpty: true })
-    .pipe(
-      babel({
-        presets: ['@babel/env'],
-      })
-    )
     .pipe(uglify({
       mangle: true,
       compress: {
@@ -95,15 +88,6 @@ function jsnoncritical() {
       './node_modules/fg-loadcss/dist/loadCSS.js',
       './node_modules/vanilla-lazyload/dist/lazyload.js'
     ], { allowEmpty: true })
-    .pipe(
-      babel({
-        presets: ['@babel/env'],
-        overrides: [{
-          test: './node_modules/**',
-          sourceType: 'script'
-        }]
-      })
-    )
     .pipe(uglify({
       mangle: true,
       compress: {
@@ -159,9 +143,6 @@ function csscritical() {
         css: ['./dist/css/main.css'],
       })
     )
-    .on('error', err => {
-      log.error(err.message);
-    })
     .pipe(concat('css.css'))
     .pipe(ext('.hbs'))
     .pipe(gulp.dest('./src/html/partials/global/'))
@@ -274,14 +255,15 @@ const watch =
       jslint,
       csslint
     ),
-    html,
     gulp.parallel(
       cssnoncritical,
       jscritical,
       jsnoncritical
     ),
-    csscritical,
-    jslazyloadmodules,
+    gulp.parallel(
+      csscritical,
+      jslazyloadmodules
+    ),
     html,
     browserSync,
     watchFiles
