@@ -2,7 +2,6 @@
 Minimal front end boilerplate, kept up to date via Node package manager.
 
 Will play nice(st) with the latest versions of modern browsers:-
-* IE11
 * Edge
 * Firefox
 * Chromium
@@ -18,18 +17,17 @@ Will play nice(st) with the latest versions of modern browsers:-
 ## Features
 
 ### Javascript
-* Bootstrap V5 Beta
+* Bootstrap v5
 * Fully vanilla, no frameworks here!
-* ES6 Javascript scripts process (linting, uglify, compression, concat) with backwards compatibility thanks to Babel
-* Critical path JS inline in document footer (increased load speed, less http round trips)
-* Lazyloading of non-critical JS files (loadJS, loads after initial paint)
+* Javascript scripts process (linting, uglify, compression, concat)
+* Deferred loading of JS
 
 ### CSS
 * Bootstrap V5 Beta
 * SASS styles process (linting, compression, autoprefixing, concat, loading of modules)
 * PurgeCSS to rid of bloat and unused styles
 * Critical path CSS inline in document head (increased load speed, less http round trips)
-* Lazyloading of non-critical CSS files (loadCSS, loads after initial paint)
+* Lazyloading of non-critical CSS files (browser supported tag)
 
 ### Assets
 * Handlebars HTML templating process (featuring partials)

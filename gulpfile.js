@@ -48,45 +48,11 @@ function jslint() {
     .pipe(browsersync.stream());
 }
 
-function jslazyloadmodules() {
-  return gulp
-    .src([
-      './node_modules/loadjs/dist/loadjs.min.js'
-    ], { allowEmpty: true })
-    .pipe(ext('.hbs'))
-    .pipe(gulp.dest('./src/html/partials/global/'))
-    .pipe(browsersync.stream());
-}
-
-function jscritical() {
-  return gulp
-    .src('./src/js/critical.js', { allowEmpty: true })
-    .pipe(uglify({
-      mangle: true,
-      compress: {
-        sequences: true,
-        dead_code: true,
-        conditionals: true,
-        booleans: true,
-        unused: true,
-        if_return: true,
-        join_vars: true,
-        drop_console: false
-      }}
-    ))
-    .pipe(concat('js.js'))
-    .pipe(ext('.hbs'))
-    .pipe(gulp.dest('./src/html/partials/global/'))
-    .pipe(browsersync.stream());
-}
-
-function jsnoncritical() {
+function js() {
   return gulp
     .src([
       './node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-      './src/js/main.js',
-      './node_modules/fg-loadcss/dist/loadCSS.js',
-      './node_modules/vanilla-lazyload/dist/lazyload.js'
+      './src/js/main.js'
     ], { allowEmpty: true })
     .pipe(uglify({
       mangle: true,
@@ -257,12 +223,10 @@ const watch =
     ),
     gulp.parallel(
       cssnoncritical,
-      jscritical,
-      jsnoncritical
+      js
     ),
     gulp.parallel(
-      csscritical,
-      jslazyloadmodules
+      csscritical
     ),
     html,
     browserSync,
@@ -281,8 +245,7 @@ const csswatch =
 const jswatch =
   gulp.series(
     jslint,
-    jscritical,
-    jsnoncritical,
+    js,
     html
   );
 
