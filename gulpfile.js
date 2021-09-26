@@ -1,265 +1,104 @@
-'use strict';
+import gulp from 'gulp';
+import del from 'del';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass( dartSass );
+import cleanCSS from 'gulp-clean-css';
+import purgecss from 'gulp-purgecss';
+import concat from 'gulp-concat';
+import uglify from 'gulp-uglify';
+import svgsprite from 'gulp-svg-sprite';
+import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin';
+import hb from 'gulp-hb';
+import ext from 'gulp-ext-replace'
+import browsersync from 'browser-sync';
 
-//
-// Packages
-//
+export const clean = () => del([ 'dist/' ]);
 
-const gulp = require('gulp');
-const del = require('del');
-const svgsprite = require('gulp-svg-sprite');
-const imagemin = require('gulp-imagemin');
-const jshint = require('gulp-jshint');
-const stylish = require('jshint-stylish');
-const cleanCSS = require('gulp-clean-css');
-const sass = require('gulp-sass');
-const autoprefixer = require('gulp-autoprefixer');
-const sasslint = require('gulp-sass-lint');
-const ext = require('gulp-ext-replace');
-const uglify = require('gulp-uglify');
-const concat = require('gulp-concat');
-const hb = require('gulp-hb');
-const favicon = require('gulp-base64-favicon');
-const browsersync = require('browser-sync').create();
-const purgecss = require('gulp-purgecss');
-const critical = require('critical').stream;
-
-
-//
-// Processes
-//
-
-// Clean
-function clean() {
-  return del('./dist');
-}
-
-//
-// JS
-//
-
-function jslint() {
-  return gulp
-    .src([
-      './src/js/*/js',
-      './gulpfile.js'
-    ], { allowEmpty: true })
-    .pipe(jshint())
-    .pipe(jshint.reporter(stylish))
-    .pipe(browsersync.stream());
-}
-
-function js() {
-  return gulp
-    .src([
-      './node_modules/bootstrap/dist/js/bootstrap.bundle.js',
-      './src/js/main.js'
-    ], { allowEmpty: true })
-    .pipe(uglify({
-      mangle: true,
-      compress: {
-        sequences: true,
-        dead_code: true,
-        conditionals: true,
-        booleans: true,
-        unused: true,
-        if_return: true,
-        join_vars: true,
-        drop_console: false
-      }}
-    ))
+export function scripts() {
+  return gulp.src(['node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'src/js/main.js'], { sourcemaps: true })
+    .pipe(uglify())
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('./dist/js/'))
+    .pipe(gulp.dest('dist/js/'))
     .pipe(browsersync.stream());
 }
 
-
-//
-// CSS
-//
-
-function csslint() {
-  return gulp
-    .src('./src/scss/*.scss', { allowEmpty: true })
-    .pipe(sasslint({'configFile': './.sass-lint.yml'}))
-    .pipe(sasslint.format())
-    .pipe(sasslint.failOnError())
-    .pipe(browsersync.stream());
-}
-
-function cssnoncritical() {
-  return gulp
-    .src('./src/scss/main.scss', { allowEmpty: true })
+export function styles() {
+  return gulp.src('src/scss/main.scss')
     .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(purgecss({
-      content: ['./dist/*.html']
-    }))
-    .pipe(autoprefixer())
+    .pipe(purgecss({content: ['dist/*.html']}))
     .pipe(cleanCSS())
-    .pipe(gulp.dest('./dist/css/'))
+    .pipe(gulp.dest('dist/css/'))
     .pipe(browsersync.stream());
 }
 
-function csscritical() {
-  return gulp
-    .src('./dist/*.html')
-    .pipe(
-      critical({
-        base: './dist/',
-        inline: false,
-        css: ['./dist/css/main.css'],
-      })
-    )
-    .pipe(concat('css.css'))
-    .pipe(ext('.hbs'))
-    .pipe(gulp.dest('./src/html/partials/global/'))
-    .pipe(browsersync.stream());
-}
-
-
-//
-// Assets
-//
-
-function sprite() {
-  return gulp
-    .src('./src/sprite/**/**/*.svg', { allowEmpty: true })
-    .pipe(
-      svgsprite({
-        shape: {
-          spacing: {
-            padding: 5
-          }
-        },
-        mode: {
-          symbol: true
-        },
-        svg: {
-          xmlDeclaration: false,
-          doctypeDeclaration: false,
-          namespaceIDs: false,
-          namespaceClassnames: false
-        }
-      })
-    )
+export function sprite() {
+  return gulp.src('src/sprite/**/**/*.svg')
+    .pipe(svgsprite({
+      shape: { spacing: { padding: 5 } },
+      mode: { symbol: true },
+      svg: { xmlDeclaration: false, doctypeDeclaration: false, namespaceIDs: false, namespaceClassnames: false }
+    }))
     .pipe(concat('sprite.hbs'))
-    .pipe(gulp.dest('./src/html/partials/global/'))
+    .pipe(gulp.dest('src/html/partials/global/'))
     .pipe(browsersync.stream());
 }
 
-function images() {
-  return gulp
-    .src('./src/img/**/**/*', { allowEmpty: true })
-    .pipe(
-      imagemin([
-        imagemin.gifsicle({ interlaced: true }),
-        imagemin.mozjpeg({ quality: 80, progressive: true }),
-        imagemin.optipng({ optimizationLevel: 5 }),
-        imagemin.svgo({
-          plugins: [
-            {
-              removeViewBox: false,
-              collapseGroups: true
-            }
-          ]
-        })
-      ])
-    )
-    .pipe(gulp.dest('./dist/img/'))
+export function images() {
+  return gulp.src('src/img/**/**/*')
+    .pipe(imagemin([
+      gifsicle({interlaced: true}),
+      mozjpeg({quality: 75, progressive: true}),
+      optipng({optimizationLevel: 5}),
+      svgo({
+        plugins: [
+          {
+            name: 'removeViewBox',
+            active: true
+          },
+          {
+            name: 'cleanupIDs',
+            active: true
+          },
+          {
+            name: 'collapseGroups',
+            active: true
+          }
+        ]
+      })
+    ]))
+    .pipe(gulp.dest('dist/img/'))
     .pipe(browsersync.stream());
 }
 
-
-//
-// HTML
-//
-
-// HTML
-function html() {
-  return gulp
-    .src('./src/html/*.hbs')
+export function html() {
+  return gulp.src('src/html/*.hbs')
     .pipe(hb()
-      .partials('./src/html/partials/**/*.hbs')
+      .partials('src/html/partials/**/*.hbs')
     )
     .pipe(ext('.html'))
-    .pipe(favicon())
-    .pipe(gulp.dest('./dist/'))
+    .pipe(gulp.dest('dist/'))
     .pipe(browsersync.stream());
 }
 
-
-//
-// Testing environment
-//
-
-// BrowserSync
-function browserSync(done) {
-  browsersync.init({
-    server: {
-      baseDir: "./dist"
-    },
-    port: 3000
-  });
+export function browserSync(done) {
+  browsersync.init({server: {baseDir: "dist"}, port: 3000});
   done();
 }
 
-function browserSyncReload(done) {
+export function browserSyncReload(done) {
   browsersync.reload();
   done();
 }
 
-
-//
-// Watch and build scripts
-//
-
-const watch =
-  gulp.series(
-    clean,
-    gulp.parallel(
-      sprite,
-      images,
-      jslint,
-      csslint
-    ),
-    gulp.parallel(
-      cssnoncritical,
-      js
-    ),
-    gulp.parallel(
-      csscritical
-    ),
-    html,
-    browserSync,
-    watchFiles
-  );
-
-const csswatch =
-  gulp.series(
-    csslint,
-    cssnoncritical,
-    html,
-    csscritical,
-    html
-  );
-
-const jswatch =
-  gulp.series(
-    jslint,
-    js,
-    html
-  );
-
 function watchFiles() {
-  gulp.watch('./src/scss/**/*.scss', csswatch);
-  gulp.watch('./src/js/**/*.js', jswatch);
-  gulp.watch('./src/sprite/**/*.svg', sprite);
-  gulp.watch('./src/html/**/*.hbs', html);
-  gulp.watch('./src/img/**/*', images);
+  gulp.watch('src/scss/**/*.scss', styles);
+  gulp.watch('src/js/**/*.js', scripts);
+  gulp.watch('src/sprite/**/*.svg', sprite);
+  gulp.watch('src/html/**/*.hbs', html);
+  gulp.watch('src/img/**/*', images);
 }
 
+const build = gulp.series(clean, gulp.parallel(sprite, images, html, scripts), styles, browserSync, watchFiles);
 
-//
-// Export tasks
-//
-
-exports.default = watch;
+export default build;

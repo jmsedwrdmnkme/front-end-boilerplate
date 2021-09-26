@@ -19,15 +19,13 @@ Will play nice(st) with the latest versions of modern browsers:-
 ### Javascript
 * Bootstrap v5
 * Fully vanilla, no frameworks here!
-* Javascript scripts process (linting, uglify, compression, concat)
-* Deferred loading of JS
+* Javascript scripts process (uglify, compression, concat)
+* Native deferred loading of JS
 
 ### CSS
-* Bootstrap V5 Beta
-* SASS styles process (linting, compression, autoprefixing, concat, loading of modules)
+* Bootstrap v5
+* SASS styles process (compression, concat)
 * PurgeCSS to rid of bloat and unused styles
-* Critical path CSS inline in document head (increased load speed, less http round trips)
-* Lazyloading of non-critical CSS files (browser supported tag)
 
 ### Assets
 * Handlebars HTML templating process (featuring partials)
@@ -37,4 +35,4 @@ Will play nice(st) with the latest versions of modern browsers:-
 * BrowserSync process (auto reload on file save/update)
 
 ## To do
-* Revisit the gulp processing, needs reordering and tidying up to fully incorporate the Critical package browsersync and compilation.
+* Critical inline CSS and lazyloading of non-critical styles (although PurgeCSS alleviates a lot of requirement here). Current options do not play nice with ES6 module loading in Gulp.
