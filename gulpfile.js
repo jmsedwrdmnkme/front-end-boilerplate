@@ -73,9 +73,7 @@ export function images() {
 
 export function html() {
   return gulp.src('src/html/*.hbs')
-    .pipe(hb()
-      .partials('src/html/partials/**/*.hbs')
-    )
+    .pipe(hb().partials('src/html/partials/**/*.hbs'))
     .pipe(ext('.html'))
     .pipe(gulp.dest('dist/'))
     .pipe(browsersync.stream());
