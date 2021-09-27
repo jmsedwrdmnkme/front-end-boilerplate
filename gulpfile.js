@@ -92,13 +92,13 @@ export function browserSyncReload(done) {
 }
 
 function watchFiles() {
-  gulp.watch('src/scss/**/*.scss', styles);
   gulp.watch('src/js/**/*.js', scripts);
   gulp.watch('src/sprite/**/*.svg', sprite);
-  gulp.watch('src/html/**/*.hbs', html);
+  gulp.watch(['src/html/**/*.hbs', 'src/scss/**/*.scss'], htmlBuild);
   gulp.watch('src/img/**/*', images);
 }
 
-const build = gulp.series(clean, gulp.parallel(sprite, images, html, scripts), styles, browserSync, watchFiles);
+const htmlBuild = gulp.series(html, styles);
+const build = gulp.series(clean, gulp.parallel(sprite, images, scripts), htmlBuild, browserSync, watchFiles);
 
 export default build;
