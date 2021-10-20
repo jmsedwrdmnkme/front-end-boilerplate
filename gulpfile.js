@@ -1,3 +1,6 @@
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
+
 import gulp from 'gulp';
 import del from 'del';
 import dartSass from 'sass';
@@ -5,6 +8,7 @@ import gulpSass from 'gulp-sass';
 const sass = gulpSass( dartSass );
 import cleanCSS from 'gulp-clean-css';
 import purgecss from 'gulp-purgecss';
+const critical = require('critical').stream;
 import concat from 'gulp-concat';
 import uglify from 'gulp-uglify';
 import svgsprite from 'gulp-svg-sprite';
@@ -29,6 +33,23 @@ export function styles() {
     .pipe(purgecss({content: ['dist/*.html']}))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/css/'))
+    .pipe(browsersync.stream());
+}
+
+export function criticalStyles() {
+  return gulp.src('dist/*.html')
+    .pipe(
+      critical({
+        base: 'dist/',
+        inline: true,
+        css: 'dist/css/main.css',
+        target: {
+          css: 'css/critical.css',
+          uncritical: 'css/uncritical.css',
+        },
+      })
+    )
+    .pipe(gulp.dest('dist/'))
     .pipe(browsersync.stream());
 }
 
@@ -96,7 +117,7 @@ function watchFiles() {
   gulp.watch('src/img/**/*', images);
 }
 
-const htmlBuild = gulp.series(html, styles);
+const htmlBuild = gulp.series(html, styles, criticalStyles);
 const build = gulp.series(clean, gulp.parallel(sprite, images, scripts), htmlBuild, browserSync, watchFiles);
 
 export default build;

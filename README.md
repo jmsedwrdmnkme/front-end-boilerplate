@@ -26,6 +26,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 * Bootstrap v5
 * SASS styles process (compression, concat)
 * PurgeCSS to rid of bloat and unused styles
+* Critical for inlining of critical styles and deferred loading of non-critical styles
 
 ### Assets
 * Handlebars HTML templating process (featuring partials)
@@ -33,6 +34,3 @@ Will play nice(st) with the latest versions of modern browsers:-
 * SVG icon sprite (generated inline from SVG assets)
 * Favicon creation from supplied PNG, base64 encoded inline to remove additional HTTP request
 * BrowserSync process (auto reload on file save/update)
-
-## To do
-* Critical inline CSS and lazyloading of non-critical styles (although PurgeCSS alleviates a lot of requirement here). Current options do not play nice with ES6 module loading in Gulp.
