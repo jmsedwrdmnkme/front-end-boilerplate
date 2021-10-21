@@ -44,9 +44,8 @@ export function criticalStyles() {
         inline: true,
         css: 'dist/css/main.css',
         target: {
-          css: 'css/critical.css',
-          uncritical: 'css/uncritical.css',
-        },
+          uncritical: 'css/main.css'
+        }
       })
     )
     .pipe(gulp.dest('dist/'))
