@@ -1,6 +1,42 @@
 {{> header }}
 
-<div class="container">
+<div class="bg-dark text-light py-5">
+  <div class="container py-5">
+    <h1 class="display-5">Front end boilerplate</h1>
+    <p class="lead">Minimal front end boilerplate, kept up to date via Node package manager.</p>
+  </div>
+</div>
+
+<div class="container py-5">
+  <p>Will play nice(st) with the latest versions of modern browsers:-</p>
+  <ul>
+   <li>Edge</li>
+   <li>Firefox</li>
+   <li>Chromium</li>
+   <li>Safari</li>
+  </ul>
+  <h2 class="mt-4" id="javascript">Javascript</h2>
+  <ul>
+     <li>Bootstrap v5</li>
+     <li>Fully vanilla, no frameworks here!</li>
+     <li>Javascript scripts process (uglify, compression, concat)</li>
+     <li>Native deferred loading of JS</li>
+  </ul>
+  <h2 class="mt-4" id="css">CSS</h2>
+  <ul>
+     <li>Bootstrap v5</li>
+     <li>SASS styles process (compression, concat)</li>
+     <li>PurgeCSS to rid of bloat and unused styles</li>
+     <li>Critical for inlining of critical styles and deferred loading of non-critical styles</li>
+  </ul>
+  <h2 class="mt-4" id="assets">Assets</h2>
+  <ul>
+     <li>Handlebars HTML templating process (featuring partials)</li>
+     <li>Imagemin IMG process (image optimisation and SVG minification)</li>
+     <li>SVG icon sprite (generated inline from SVG assets)</li>
+     <li>BrowserSync process (auto reload on file save/update)</li>
+  </ul>
+  <a class="btn btn-primary mt-4" id="git" href="//git.jamesmonk.me/james/front-end-boilerplate" target="_blank">View project on GIT</a>
 </div>
 
 {{> footer }}

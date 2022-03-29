@@ -32,5 +32,4 @@ Will play nice(st) with the latest versions of modern browsers:-
 * Handlebars HTML templating process (featuring partials)
 * Imagemin IMG process (image optimisation and SVG minification)
 * SVG icon sprite (generated inline from SVG assets)
-* Favicon creation from supplied PNG, base64 encoded inline to remove additional HTTP request
 * BrowserSync process (auto reload on file save/update)
