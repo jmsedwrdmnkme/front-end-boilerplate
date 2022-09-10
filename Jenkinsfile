@@ -14,6 +14,7 @@ pipeline {
     }
     stage('Deploy') {
       steps {
+        sh 'rm -rf /var/www/front-end-boilerplate/*'
         sh 'mv -v dist/* /var/www/front-end-boilerplate/'
       }
     }

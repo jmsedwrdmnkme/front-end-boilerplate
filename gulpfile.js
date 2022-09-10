@@ -19,6 +19,12 @@ import browsersync from 'browser-sync';
 
 export const clean = () => del([ 'dist/' ]);
 
+export function root() {
+  return gulp.src('src/root/*')
+    .pipe(gulp.dest('dist/'))
+    .pipe(browsersync.stream());
+}
+
 export function scripts() {
   return gulp.src(['node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'src/js/main.js'], { sourcemaps: true })
     .pipe(uglify())
@@ -114,10 +120,11 @@ function watchFiles() {
   gulp.watch('src/sprite/**/*.svg', sprite);
   gulp.watch(['src/html/**/*.hbs', 'src/scss/**/*.scss'], htmlBuild);
   gulp.watch('src/img/**/*', images);
+  gulp.watch('src/root/**/*', root);
 }
 
 const htmlBuild = gulp.series(html, styles, criticalStyles);
-export const build = gulp.series(clean, gulp.parallel(sprite, images, scripts), htmlBuild);
+export const build = gulp.series(clean, gulp.parallel(root, sprite, images, scripts), htmlBuild);
 const watch = gulp.series(build, browserSync, watchFiles);
 
 export default watch;
