@@ -20,7 +20,7 @@ import browsersync from 'browser-sync';
 export const clean = () => del([ 'dist/' ]);
 
 export function root() {
-  return gulp.src('src/root/*')
+  return gulp.src(['src/root/*', 'src/root/.*'])
     .pipe(gulp.dest('dist/'))
     .pipe(browsersync.stream());
 }
