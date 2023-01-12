@@ -1,5 +1,5 @@
 # front-end-boilerplate
-Minimal front end boilerplate, kept up to date via Node package manager.
+Modern, optimised, minimal front end boilerplate; installed and kept up to date via Node package manager.
 
 Will play nice(st) with the latest versions of modern browsers:-
 * Edge
@@ -33,3 +33,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 * Imagemin IMG process (image optimisation and SVG minification)
 * SVG icon sprite (generated inline from SVG assets)
 * BrowserSync process (auto reload on file save/update)
+
+## Demo
+
+https://feb.jamesmonk.me/

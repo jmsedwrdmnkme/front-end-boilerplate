@@ -3,40 +3,42 @@
 <div class="bg-dark text-light py-5">
   <div class="container py-5">
     <h1 class="display-5">Front end boilerplate</h1>
-    <p class="lead">Minimal front end boilerplate, kept up to date via Node package manager.</p>
+    <p class="lead">Modern, optimised, minimal front end boilerplate; installed and kept up to date via Node package manager.</p>
   </div>
 </div>
 
-<div class="container py-5">
+<div class="container py-5" id="about">
   <p>Will play nice(st) with the latest versions of modern browsers:-</p>
   <ul>
    <li>Edge</li>
-   <li>Firefox</li>
+   <li>Firefox (and you should all be using this :P)</li>
    <li>Chromium</li>
    <li>Safari</li>
   </ul>
-  <h2 class="mt-4" id="javascript">Javascript</h2>
+  <p class="h5 mt-4">Javascript</p>
   <ul>
      <li>Bootstrap v5</li>
      <li>Fully vanilla, no frameworks here!</li>
      <li>Javascript scripts process (uglify, compression, concat)</li>
      <li>Native deferred loading of JS</li>
   </ul>
-  <h2 class="mt-4" id="css">CSS</h2>
+  <p class="h5 mt-4">CSS</p>
   <ul>
      <li>Bootstrap v5</li>
      <li>SASS styles process (compression, concat)</li>
      <li>PurgeCSS to rid of bloat and unused styles</li>
      <li>Critical for inlining of critical styles and deferred loading of non-critical styles</li>
   </ul>
-  <h2 class="mt-4" id="assets">Assets</h2>
+  <p class="h5 mt-4">Assets</p>
   <ul>
      <li>Handlebars HTML templating process (featuring partials)</li>
      <li>Imagemin IMG process (image optimisation and SVG minification)</li>
      <li>SVG icon sprite (generated inline from SVG assets)</li>
      <li>BrowserSync process (auto reload on file save/update)</li>
   </ul>
-  <a class="btn btn-primary mt-4" id="git" href="//git.jamesmonk.me/james/front-end-boilerplate" target="_blank">View project on GIT</a>
+  <h2 class="mt-5" id="download">Download</h2>
+  <a class="btn btn-primary mt-4" href="//git.jamesmonk.me/james/front-end-boilerplate" target="_blank">View project on GIT</a>
+  <a class="btn btn-secondary mt-4" href="javascript:(function(d){var f=d.createElement('form');f.action='https://gtmetrix.com/analyze.html?bm';f.method='post';f.target='_blank';var i=d.createElement('input');i.type='hidden';i.name='url';i.value=document.location.href;f.appendChild(i);d.body.appendChild(f);f.submit();})(document);" target="_blank">GTMetrix report</a>
 </div>
 
 {{> footer }}
