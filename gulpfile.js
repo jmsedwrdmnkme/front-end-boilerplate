@@ -9,6 +9,8 @@ const sass = gulpSass( dartSass );
 import cleanCSS from 'gulp-clean-css';
 import purgecss from 'gulp-purgecss';
 const critical = require('critical').stream;
+import compiler from 'webpack';
+import webpack from 'webpack-stream';
 import concat from 'gulp-concat';
 import uglify from 'gulp-uglify';
 import svgsprite from 'gulp-svg-sprite';
@@ -26,7 +28,8 @@ export function root() {
 }
 
 export function scripts() {
-  return gulp.src(['node_modules/bootstrap/dist/js/bootstrap.bundle.js', 'src/js/main.js'], { sourcemaps: true })
+  return gulp.src('src/js/main.js')
+    .pipe(webpack({}, compiler, function(err, stats) {}))
     .pipe(uglify())
     .pipe(concat('main.js'))
     .pipe(gulp.dest('dist/js/'))
