@@ -13,8 +13,8 @@
   "author": "James Monk",
   "license": "ISC",
   "type": "module",
-  "devDependencies": {
-    "bootstrap": "^5.1.1",
+  "dependencies": {
+    "bootstrap": "^5.3.0-alpha1",
     "browser-sync": "^2.27.5",
     "critical": "^4.0.1",
     "del": "^6.0.0",

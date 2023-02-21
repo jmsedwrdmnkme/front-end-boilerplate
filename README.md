@@ -17,13 +17,13 @@ Will play nice(st) with the latest versions of modern browsers:-
 ## Features
 
 ### Javascript
-* Bootstrap v5
+* Bootstrap v5.3.0 alpha 1
 * Fully vanilla, no frameworks here!
 * Javascript scripts process (uglify, compression, concat)
 * Native deferred loading of JS
 
 ### CSS
-* Bootstrap v5
+* Bootstrap v5.3.0 alpha 1
 * SASS styles process (compression, concat)
 * PurgeCSS to rid of bloat and unused styles
 * Critical for inlining of critical styles and deferred loading of non-critical styles
