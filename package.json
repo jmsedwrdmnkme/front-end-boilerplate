@@ -14,6 +14,7 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
+    "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.3.0-alpha1",
     "browser-sync": "^2.27.5",
     "critical": "^4.0.1",

@@ -10,6 +10,7 @@ import '../../node_modules/bootstrap/js/dist/collapse.js';
 // import '../../node_modules/bootstrap/js/dist/tab.js';
 // import '../../node_modules/bootstrap/js/dist/toast.js';
 // import '../../node_modules/bootstrap/js/dist/tooltip.js';
+// import '../../node_modules/@popperjs/core/dist/esm/popper.js'; // Required for SOME above modules
 
 // Update current year in site footer
 document.addEventListener('DOMContentLoaded', function(event) { 
