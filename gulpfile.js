@@ -8,7 +8,7 @@ import gulpSass from 'gulp-sass';
 const sass = gulpSass( dartSass );
 import cleanCSS from 'gulp-clean-css';
 import purgecss from 'gulp-purgecss';
-const critical = require('critical').stream;
+import {stream as critical} from 'critical';
 import compiler from 'webpack';
 import webpack from 'webpack-stream';
 import concat from 'gulp-concat';
@@ -46,7 +46,7 @@ export function styles() {
 }
 
 export function criticalStyles() {
-  return gulp.src('dist/*.html')
+  return gulp.src('dist/**/*.html')
     .pipe(
       critical({
         base: 'dist/',
