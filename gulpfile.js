@@ -17,6 +17,7 @@ import svgsprite from 'gulp-svg-sprite';
 import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin';
 import hb from 'gulp-hb';
 import ext from 'gulp-ext-replace'
+import sitemap from 'gulp-sitemap';
 import browsersync from 'browser-sync';
 
 export const clean = () => del([ 'dist/' ]);
@@ -105,6 +106,22 @@ export function html() {
     .pipe(browsersync.stream());
 }
 
+export function sitemaps() {
+  return gulp.src('dist/*.html', {
+    read: false
+  })
+    .pipe(sitemap({
+      siteUrl: 'https://feb.jamesmonk.me',
+      fileName: 'sitemap.xml',
+      changefreq: 'weekly',
+      priority: function(siteUrl, loc, entry) {
+        return loc.split('/').length === 0 ? 1 : 0.5;
+      }
+    }))
+    .pipe(gulp.dest('dist/'))
+    .pipe(browsersync.stream());
+}
+
 export function browserSync(done) {
   browsersync.init({server: {baseDir: "dist"}, port: 3000});
   done();
@@ -123,7 +140,7 @@ function watchFiles() {
   gulp.watch('src/root/**/*', root);
 }
 
-const htmlBuild = gulp.series(html, styles, criticalStyles);
+const htmlBuild = gulp.series(html, styles, criticalStyles, sitemaps);
 export const build = gulp.series(clean, gulp.parallel(root, sprite, images, scripts), htmlBuild);
 const watch = gulp.series(build, browserSync, watchFiles);
 
