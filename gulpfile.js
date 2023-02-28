@@ -28,6 +28,18 @@ export function root() {
     .pipe(browsersync.stream());
 }
 
+export function fonts() {
+  return gulp.src('src/fonts/*')
+    .pipe(gulp.dest('dist/fonts/'))
+    .pipe(browsersync.stream());
+}
+
+export function videos() {
+  return gulp.src('src/videos/*')
+    .pipe(gulp.dest('dist/videos/'))
+    .pipe(browsersync.stream());
+}
+
 export function scripts() {
   return gulp.src('src/js/main.js')
     .pipe(webpack({}, compiler, function(err, stats) {}))
@@ -40,7 +52,10 @@ export function scripts() {
 export function styles() {
   return gulp.src('src/scss/main.scss')
     .pipe(sass({outputStyle: 'compressed'}))
-    .pipe(purgecss({content: ['dist/*.html']}))
+    .pipe(purgecss({
+      content: ['dist/*.html'],
+      safelist: [/carousel*/]
+    }))
     .pipe(cleanCSS())
     .pipe(gulp.dest('dist/css/'))
     .pipe(browsersync.stream());
@@ -141,7 +156,7 @@ function watchFiles() {
 }
 
 const htmlBuild = gulp.series(html, styles, criticalStyles, sitemaps);
-export const build = gulp.series(clean, gulp.parallel(root, sprite, images, scripts), htmlBuild);
+export const build = gulp.series(clean, gulp.parallel(root, fonts, sprite, images, videos, scripts), htmlBuild);
 const watch = gulp.series(build, browserSync, watchFiles);
 
 export default watch;
