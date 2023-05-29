@@ -67,6 +67,7 @@ export function criticalStyles() {
       critical({
         base: 'dist/',
         inline: true,
+        src: 'dist/css/main.css',
         css: 'dist/css/main.css'
       })
     )
