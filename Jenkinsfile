@@ -2,6 +2,13 @@ pipeline {
   agent any
 
   stages {
+    stage('Clean up workspace') {
+      steps {
+        // You can choose to clean workspace before build as follows
+        cleanWs()
+          checkout scm
+      }
+    }
     stage('Npm install') {
       steps {
         sh 'npm i'
