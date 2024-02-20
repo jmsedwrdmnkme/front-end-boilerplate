@@ -15,7 +15,7 @@
   "type": "module",
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.2",
+    "bootstrap": "^5.3.3",
     "browser-sync": "^2.27.5",
     "critical": "^4.0.1",
     "del": "^6.0.0",
