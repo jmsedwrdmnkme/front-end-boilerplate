@@ -34,4 +34,5 @@ Will play nice(st) with the latest versions of modern browsers:-
 * Imagemin IMG process (image optimisation and SVG minification)
 * WebP conversion for imagery (optimised file size output)
 * SVG icon sprite (generated inline from SVG assets)
+* Sitemap.xml auto generated (using file creation/update date and time)
 * BrowserSync process (auto reload on file save/update)
