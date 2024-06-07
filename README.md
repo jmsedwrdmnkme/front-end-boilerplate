@@ -32,6 +32,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 ### Assets
 * Handlebars HTML templating process (featuring partials)
 * Imagemin IMG process (image optimisation and SVG minification)
+* WebP conversion for imagery (much greater file size output)
 * SVG icon sprite (generated inline from SVG assets)
 * BrowserSync process (auto reload on file save/update)
 
