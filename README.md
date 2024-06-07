@@ -8,7 +8,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 * Safari
 
 ## Get started
-* git clone https://git.jamesmonk.me/James/front-end-boilerplate.git
+* git clone https://github.com/jmsedwrdmnkme/front-end-boilerplate.git
 * cd front-end-boilerplate
 * npm install --save-dev
 * gulp
@@ -35,7 +35,3 @@ Will play nice(st) with the latest versions of modern browsers:-
 * WebP conversion for imagery (much greater file size output)
 * SVG icon sprite (generated inline from SVG assets)
 * BrowserSync process (auto reload on file save/update)
-
-## Demo
-
-https://feb.jamesmonk.me/
