@@ -15,6 +15,7 @@ import concat from 'gulp-concat';
 import uglify from 'gulp-uglify';
 import svgsprite from 'gulp-svg-sprite';
 import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin';
+import webp from 'gulp-webp';
 import hb from 'gulp-hb';
 import ext from 'gulp-ext-replace'
 import sitemap from 'gulp-sitemap';
@@ -109,6 +110,7 @@ export function images() {
         ]
       })
     ]))
+    .pipe(webp())
     .pipe(gulp.dest('dist/img/'))
     .pipe(browsersync.stream());
 }
