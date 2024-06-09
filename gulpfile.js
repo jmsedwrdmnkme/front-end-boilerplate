@@ -128,7 +128,7 @@ export function sitemaps() {
     read: false
   })
     .pipe(sitemap({
-      siteUrl: 'https://feb.jamesmonk.me',
+      siteUrl: 'localhost',
       fileName: 'sitemap.xml',
       changefreq: 'weekly',
       priority: function(siteUrl, loc, entry) {
