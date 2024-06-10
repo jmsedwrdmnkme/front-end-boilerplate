@@ -140,7 +140,7 @@ export function sitemaps() {
 }
 
 export function browserSync(done) {
-  browsersync.init({server: {baseDir: "dist"}, port: 3000});
+  browsersync.init({server: {baseDir: "dist"}, port: 3000, open: false});
   done();
 }
 
