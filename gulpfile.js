@@ -88,11 +88,17 @@ export function sprite() {
 }
 
 export function images() {
-  return gulp.src('src/img/**/**/*')
+  gulp.src('src/img/**/**/*[.jpg|.gif|.png]')
     .pipe(imagemin([
       gifsicle({interlaced: true}),
       mozjpeg({quality: 75, progressive: true}),
       optipng({optimizationLevel: 5}),
+    ]))
+    .pipe(webp())
+    .pipe(gulp.dest('dist/img/'))
+    .pipe(browsersync.stream());
+  return gulp.src('src/img/**/**/*.svg')
+    .pipe(imagemin([
       svgo({
         plugins: [
           {
@@ -110,7 +116,6 @@ export function images() {
         ]
       })
     ]))
-    .pipe(webp())
     .pipe(gulp.dest('dist/img/'))
     .pipe(browsersync.stream());
 }
