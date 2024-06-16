@@ -1,5 +1,5 @@
 # front-end-boilerplate
-Modern, optimised, minimal front end boilerplate; installed and kept up to date via Node package manager.
+Modern, optimised, minimal front end boilerplate; installed and kept up to date via PNPM.
 
 Will play nice(st) with the latest versions of modern browsers:-
 * Edge
@@ -10,7 +10,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 ## Get started
 * git clone https://github.com/jmsedwrdmnkme/front-end-boilerplate.git
 * cd front-end-boilerplate
-* npm install --save-dev
+* pnpm install --save-dev
 * gulp
 * Start building!
 
