@@ -1,9 +1,6 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-
-import gulp from 'gulp';
-import del from 'del';
-import dartSass from 'sass';
+import {src, dest, watch, series, parallel} from 'gulp';
+import {deleteAsync} from 'del';
+import * as dartSass from 'sass'
 import gulpSass from 'gulp-sass';
 const sass = gulpSass( dartSass );
 import cleanCSS from 'gulp-clean-css';
@@ -21,49 +18,49 @@ import ext from 'gulp-ext-replace'
 import sitemap from 'gulp-sitemap';
 import browsersync from 'browser-sync';
 
-export const clean = () => del([ 'dist/' ]);
+export const clean = () => deleteAsync('dist/');
 
 export function root() {
-  return gulp.src(['src/root/*', 'src/root/.*'])
-    .pipe(gulp.dest('dist/'))
+  return src(['src/root/*', 'src/root/.*'], {encoding: false})
+    .pipe(dest('dist/'))
     .pipe(browsersync.stream());
 }
 
 export function fonts() {
-  return gulp.src('src/fonts/*')
-    .pipe(gulp.dest('dist/fonts/'))
+  return src('src/fonts/*', {encoding: false})
+    .pipe(dest('dist/fonts/'))
     .pipe(browsersync.stream());
 }
 
 export function videos() {
-  return gulp.src('src/videos/*')
-    .pipe(gulp.dest('dist/videos/'))
+  return src('src/videos/*', {encoding: false})
+    .pipe(dest('dist/videos/'))
     .pipe(browsersync.stream());
 }
 
 export function scripts() {
-  return gulp.src('src/js/main.js')
-    .pipe(webpack({}, compiler, function(err, stats) {}))
+  return src('src/js/main.js', {encoding: false})
+    .pipe(webpack({}, compiler, function() {}))
     .pipe(uglify())
     .pipe(concat('main.js'))
-    .pipe(gulp.dest('dist/js/'))
+    .pipe(dest('dist/js/'))
     .pipe(browsersync.stream());
 }
 
 export function styles() {
-  return gulp.src('src/scss/main.scss')
+  return src('src/scss/main.scss', {encoding: false})
     .pipe(sass({outputStyle: 'compressed'}))
     .pipe(purgecss({
       content: ['dist/*.html'],
       safelist: [/carousel*/]
     }))
     .pipe(cleanCSS())
-    .pipe(gulp.dest('dist/css/'))
+    .pipe(dest('dist/css/'))
     .pipe(browsersync.stream());
 }
 
 export function criticalStyles() {
-  return gulp.src('dist/**/*.html')
+  return src('dist/**/*.html', {encoding: false})
     .pipe(
       critical({
         base: 'dist/',
@@ -71,33 +68,33 @@ export function criticalStyles() {
         css: 'dist/css/main.css'
       })
     )
-    .pipe(gulp.dest('dist/'))
+    .pipe(dest('dist/'))
     .pipe(browsersync.stream());
 }
 
 export function sprite() {
-  return gulp.src('src/sprite/**/**/*.svg')
+  return src('src/sprite/**/**/*.svg', {encoding: false})
     .pipe(svgsprite({
       shape: { spacing: { padding: 5 } },
       mode: { symbol: true },
       svg: { xmlDeclaration: false, doctypeDeclaration: false, namespaceIDs: false, namespaceClassnames: false }
     }))
     .pipe(concat('sprite.hbs'))
-    .pipe(gulp.dest('src/html/partials/global/'))
+    .pipe(dest('src/html/partials/global/'))
     .pipe(browsersync.stream());
 }
 
 export function images() {
-  gulp.src('src/img/**/**/*[.jpg|.gif|.png]')
+  src('src/img/**/**/*[.jpg|.gif|.png]', {encoding: false})
     .pipe(imagemin([
       gifsicle({interlaced: true}),
       mozjpeg({quality: 75, progressive: true}),
       optipng({optimizationLevel: 5}),
     ]))
     .pipe(webp())
-    .pipe(gulp.dest('dist/img/'))
+    .pipe(dest('dist/img/'))
     .pipe(browsersync.stream());
-  return gulp.src('src/img/**/**/*.svg')
+  return src('src/img/**/**/*.svg', {encoding: false})
     .pipe(imagemin([
       svgo({
         plugins: [
@@ -116,20 +113,21 @@ export function images() {
         ]
       })
     ]))
-    .pipe(gulp.dest('dist/img/'))
+    .pipe(dest('dist/img/'))
     .pipe(browsersync.stream());
 }
 
 export function html() {
-  return gulp.src('src/html/*.hbs')
+  return src('src/html/*.hbs', {encoding: false})
     .pipe(hb().partials('src/html/partials/**/*.hbs'))
     .pipe(ext('.html'))
-    .pipe(gulp.dest('dist/'))
+    .pipe(dest('dist/'))
     .pipe(browsersync.stream());
 }
 
 export function sitemaps() {
-  return gulp.src('dist/*.html', {
+  return src('dist/*.html', {
+    encoding: false,
     read: false
   })
     .pipe(sitemap({
@@ -140,7 +138,7 @@ export function sitemaps() {
         return loc.split('/').length === 0 ? 1 : 0.5;
       }
     }))
-    .pipe(gulp.dest('dist/'))
+    .pipe(dest('dist/'))
     .pipe(browsersync.stream());
 }
 
@@ -155,15 +153,15 @@ export function browserSyncReload(done) {
 }
 
 function watchFiles() {
-  gulp.watch('src/js/**/*.js', scripts);
-  gulp.watch('src/sprite/**/*.svg', sprite);
-  gulp.watch(['src/html/**/*.hbs', 'src/scss/**/*.scss'], htmlBuild);
-  gulp.watch('src/img/**/*', images);
-  gulp.watch('src/root/**/*', root);
+  watch('src/js/**/*.js', scripts);
+  watch('src/sprite/**/*.svg', sprite);
+  watch(['src/html/**/*.hbs', 'src/scss/**/*.scss'], htmlBuild);
+  watch('src/img/**/*', images);
+  watch('src/root/**/*', root);
 }
 
-const htmlBuild = gulp.series(html, styles, criticalStyles, sitemaps);
-export const build = gulp.series(clean, gulp.parallel(root, fonts, sprite, images, videos, scripts), htmlBuild);
-const watch = gulp.series(build, browserSync, watchFiles);
+const htmlBuild = series(html, styles, criticalStyles, sitemaps);
+export const build = series(clean, parallel(root, fonts, sprite, images, videos, scripts), htmlBuild);
+const watchSrc = series(build, browserSync, watchFiles);
 
-export default watch;
+export default watchSrc;
