@@ -4,6 +4,7 @@
   "description": "Minimal front end boilerplate, kept up to date via Node package manager",
   "main": "gulpfile.js",
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
