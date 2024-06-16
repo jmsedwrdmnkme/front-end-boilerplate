@@ -10,7 +10,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 ## Get started
 * git clone https://github.com/jmsedwrdmnkme/front-end-boilerplate.git
 * cd front-end-boilerplate
-* pnpm install --save-dev
+* pnpm install
 * gulp
 * Start building!
 
