@@ -27,13 +27,13 @@
     "gulp-hb": "^8.0.0",
     "gulp-imagemin": "^9.1.0",
     "gulp-purgecss": "^6.0.0",
-    "gulp-sass": "^5.0.0",
+    "gulp-sass": "^5.1.0",
     "gulp-sitemap": "^8.0.0",
     "gulp-svg-sprite": "^2.0.3",
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.0.0",
-    "sass": "^1.42.1",
-    "webpack": "^5.84.1",
+    "sass": "^1.77.8",
+    "webpack": "^5.93.0",
     "webpack-stream": "^7.0.0"
   }
 }
