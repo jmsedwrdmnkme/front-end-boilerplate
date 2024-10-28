@@ -17,8 +17,8 @@
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
-    "browser-sync": "^3.0.2",
-    "critical": "^7.1.2",
+    "browser-sync": "^3.0.3",
+    "critical": "^7.2.1",
     "del": "^7.1.0",
     "gulp": "^5.0.0",
     "gulp-clean-css": "^4.3.0",
@@ -32,8 +32,8 @@
     "gulp-svg-sprite": "^2.0.3",
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.0.0",
-    "sass": "^1.77.8",
-    "webpack": "^5.93.0",
+    "sass": "^1.80.4",
+    "webpack": "^5.95.0",
     "webpack-stream": "^7.0.0"
   }
 }
