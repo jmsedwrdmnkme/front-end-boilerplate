@@ -65,7 +65,7 @@ export function criticalStyles() {
       critical({
         base: 'dist/',
         inline: true,
-        css: 'dist/css/main.css'
+        uncritical: 'dist/css/main.css'
       })
     )
     .pipe(dest('dist/'))
