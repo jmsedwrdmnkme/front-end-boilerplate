@@ -1,0 +1,5 @@
+input:not(:is([type="radio"], [type="checkbox"], [type="file"], [type="button"], [type="submit"], [type="reset"])),
+textarea,
+select {
+  width: 100%;
+}

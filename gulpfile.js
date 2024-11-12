@@ -1,9 +1,8 @@
 import {src, dest, watch, series, parallel} from 'gulp';
 import {deleteAsync} from 'del';
-import * as dartSass from 'sass'
-import gulpSass from 'gulp-sass';
-const sass = gulpSass( dartSass );
-import cleanCSS from 'gulp-clean-css';
+import postcss from 'gulp-postcss';
+import cssnano from 'cssnano';
+import atImport from 'postcss-import';
 import purgecss from 'gulp-purgecss';
 import {stream as critical} from 'critical';
 import compiler from 'webpack';
@@ -48,13 +47,11 @@ export function scripts() {
 }
 
 export function styles() {
-  return src('src/scss/main.scss', {encoding: false})
-    .pipe(sass({outputStyle: 'compressed'}))
+  return src('src/css/main.css', {encoding: false})
+    .pipe(postcss([atImport, cssnano()]))
     .pipe(purgecss({
-      content: ['dist/*.html'],
-      safelist: [/carousel*/]
+      content: ['dist/*.html']
     }))
-    .pipe(cleanCSS())
     .pipe(dest('dist/css/'))
     .pipe(browsersync.stream());
 }
@@ -65,7 +62,7 @@ export function criticalStyles() {
       critical({
         base: 'dist/',
         inline: true,
-        uncritical: 'dist/css/main.css'
+        css: 'dist/css/main.css'
       })
     )
     .pipe(dest('dist/'))
@@ -94,7 +91,7 @@ export function images() {
     .pipe(webp())
     .pipe(dest('dist/img/'))
     .pipe(browsersync.stream());
-  return src('src/img/**/**/*.svg', {encoding: false})
+  return src('src/img/**/**/*.svg')
     .pipe(imagemin([
       svgo({
         plugins: [
@@ -155,7 +152,7 @@ export function browserSyncReload(done) {
 function watchFiles() {
   watch('src/js/**/*.js', scripts);
   watch('src/sprite/**/*.svg', sprite);
-  watch(['src/html/**/*.hbs', 'src/scss/**/*.scss'], htmlBuild);
+  watch(['src/html/**/*.hbs', 'src/css/**/*.css'], htmlBuild);
   watch('src/img/**/*', images);
   watch('src/root/**/*', root);
 }

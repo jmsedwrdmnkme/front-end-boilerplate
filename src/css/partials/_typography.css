@@ -1,0 +1,57 @@
+:root {
+  --font-family: system-ui, sans-serif;
+  --font-headings: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: 1rem;
+}
+
+h1,
+.h1 {
+  font-family: var(--font-headings);
+  font-size: 4rem;
+  line-height: 1;
+}
+
+h2,
+.h2 {
+  font-family: var(--font-headings);
+  font-size: 3.5rem;
+  line-height: 1;
+}
+
+h3,
+.h3 {
+  font-family: var(--font-headings);
+  font-size: 2.5rem;
+  line-height: 1.05;
+}
+
+h4,
+.h4 {
+  font-family: var(--font-headings);
+  font-size: 1.5rem;
+  line-height: 1.15;
+}
+
+h5,
+.h5 {
+  font-family: var(--font-headings);
+  font-size: 1.25rem;
+  line-height: 1.25;
+}
+
+h6,
+.h6 {
+  font-family: var(--font-headings);
+  font-size: 1.1rem;
+  line-height: 1.35;
+}
+
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p {
+  & + * {
+    margin-top: 1rem;
+  }
+}
