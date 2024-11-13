@@ -1,5 +1,14 @@
 main {
   margin: 0 auto;
   max-width: 64rem;
-  padding: 0 1.25rem;
+  padding: 0 calc(var(--container-spacing) / 2);
+}
+
+section,
+article {
+  padding: var(--container-spacing) 0;
+}
+
+hr {
+  margin: var(--container-spacing) 0;
 }

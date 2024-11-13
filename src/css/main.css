@@ -1,3 +1,5 @@
+@import 'variables/_root';
+
 @import 'utilities/_reset';
 @import 'utilities/_display';
 
