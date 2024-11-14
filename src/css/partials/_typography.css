@@ -62,7 +62,7 @@ h6,
 }
 
 /* TODO seperate out below into their dedicated partials/components */
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, ul, ol, figure, hr, pre, address, table, dl, blockquote, fieldset, form, label {
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, ul, ol, figure, hr, pre, address, table, dl, blockquote, fieldset, form, label, img, svg {
   & + * {
     margin-top: var(--container-spacing);
   }
