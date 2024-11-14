@@ -1,14 +1,20 @@
+:root {
+  --container-spacing: 2.5rem;
+}
+
+header,
+footer,
 main {
   margin: 0 auto;
-  max-width: 64rem;
-  padding: 0 calc(var(--container-spacing) / 2);
+  max-width: calc(var(--container-spacing) * 30);
+  padding-left: calc(var(--container-spacing) / 2);
+  padding-right: calc(var(--container-spacing) / 2);
 }
 
+header,
+footer,
 section,
 article {
-  padding: var(--container-spacing) 0;
-}
-
-hr {
-  margin: var(--container-spacing) 0;
+  padding-bottom: var(--container-spacing);
+  padding-top: var(--container-spacing);
 }

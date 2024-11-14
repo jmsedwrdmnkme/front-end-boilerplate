@@ -1,52 +1,69 @@
+:root {
+  --font-family: system-ui, sans-serif;
+  --font-size: clamp(1rem, 2vw, 1.25rem);
+}
+
 body {
   font-family: var(--font-family);
-  font-size: 1rem;
+  font-size: var(--font-size);
+}
+
+/*
+ * Headings
+ */
+:root {
+  --heading-font-family: Avenir, Montserrat, Corbel, 'URW Gothic', source-sans-pro, sans-serif;
+  --heading-line-height: 1.1;
+  --heading-h1-size: calc(var(--font-size) * 4);
+  --heading-h2-size: calc(var(--font-size) * 3.5);
+  --heading-h3-size: calc(var(--font-size) * 2.5);
+  --heading-h4-size: calc(var(--font-size) * 1.5);
+  --heading-h5-size: calc(var(--font-size) * 1.25);
+  --heading-h6-size: calc(var(--font-size) * 1.1);
 }
 
 h1,
 .h1 {
-  font-family: var(--font-headings);
-  font-size: 4rem;
-  line-height: 1;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-h1-size);
+  line-height: var(--heading-line-height);
 }
 
 h2,
 .h2 {
-  font-family: var(--font-headings);
-  font-size: 3.5rem;
-  line-height: 1;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-h2-size);
+  line-height: var(--heading-line-height);
 }
 
 h3,
 .h3 {
-  font-family: var(--font-headings);
-  font-size: 2.5rem;
-  line-height: 1.05;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-h3-size);
+  line-height: var(--heading-line-height);
 }
 
 h4,
 .h4 {
-  font-family: var(--font-headings);
-  font-size: 1.5rem;
-  line-height: 1.15;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-h4-size);
 }
 
 h5,
 .h5 {
-  font-family: var(--font-headings);
-  font-size: 1.25rem;
-  line-height: 1.25;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-h5-size);
 }
 
 h6,
 .h6 {
-  font-family: var(--font-headings);
-  font-size: 1.1rem;
-  line-height: 1.35;
+  font-family: var(--heading-font-family);
+  font-size: var(--heading-h6-size);
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p {
+/* TODO seperate out below into their dedicated partials/components */
+h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p, ul, ol, figure, hr, pre, address, table, dl, blockquote, fieldset, form, label {
   & + * {
-    margin-top: 1rem;
+    margin-top: var(--container-spacing);
   }
 }
