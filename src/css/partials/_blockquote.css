@@ -1,0 +1,10 @@
+blockquote {
+  & + * {
+    margin-top: var(--container-spacing);
+  }
+
+  cite {
+    display: block;
+    margin-top: calc(var(--container-spacing) / 2);
+  }
+}

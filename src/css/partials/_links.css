@@ -1,7 +1,7 @@
 :root {
-  --link-colour: #ff6666;
+  --link-colour: var(--colour-blue);
 }
 
-a {
+a:not(.button) {
   color: var(--link-colour);
 }

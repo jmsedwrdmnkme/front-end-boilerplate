@@ -1,0 +1,25 @@
+:root {
+  --button-colour: var(--colour-white);
+  --button-background: var(--colour-grey);
+}
+
+button, .button, input:is([type='button'], [type='reset'], [type='submit']) {
+  background-color: var(--button-background);
+  border: 0;
+  border-radius: calc(var(--container-spacing) / 4);
+  color: var(--button-colour);
+  padding: calc(var(--container-spacing) / 4) calc(var(--container-spacing) / 2);
+}
+
+a.button {
+  display: inline-block;
+  text-decoration: none;
+}
+
+input[type='submit'] {
+  --button-background: var(--colour-green);
+}
+
+input[type='reset'] {
+  --button-background: var(--colour-red);
+}

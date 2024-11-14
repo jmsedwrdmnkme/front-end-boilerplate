@@ -1,0 +1,5 @@
+ul, ol {
+  & + * {
+    margin-top: var(--container-spacing);
+  }
+}
