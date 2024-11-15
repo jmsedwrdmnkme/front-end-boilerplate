@@ -1,6 +1,6 @@
 @import 'variables/_colours';
 
-@import 'utilities/_reset';
+@import '../../node_modules/minireset.css/minireset.css';
 @import 'utilities/_display';
 
 @import 'partials/_containers';

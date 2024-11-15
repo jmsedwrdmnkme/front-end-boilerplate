@@ -3,12 +3,35 @@
   --button-background: var(--colour-grey);
 }
 
-button, .button, input:is([type='button'], [type='reset'], [type='submit']) {
+button,
+.button,
+input:is([type='button'], [type='reset'], [type='submit']) {
   background-color: var(--button-background);
   border: 0;
   border-radius: calc(var(--container-spacing) / 4);
   color: var(--button-colour);
+  font: inherit;
   padding: calc(var(--container-spacing) / 4) calc(var(--container-spacing) / 2);
+}
+
+button:hover,
+.button:hover,
+input:is(
+  [type='button'],
+  [type='reset'],
+  [type='submit']
+):hover {
+  opacity: 0.8;
+}
+
+button:active,
+.button:active,
+input:is(
+  [type='button'],
+  [type='reset'],
+  [type='submit']
+):active {
+  --button-background: var(--colour-black);
 }
 
 a.button {

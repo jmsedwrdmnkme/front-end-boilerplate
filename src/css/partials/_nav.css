@@ -1,11 +1,11 @@
 nav {
-  & ul {
+  ul {
     display: flex;
     list-style: none;
     margin: 0 calc(calc(var(--container-spacing) / 2) * -1);
     padding: 0;
 
-    & a {
+    a {
       display: block;
       padding: calc(var(--container-spacing) / 4) calc(var(--container-spacing) / 2);
     }

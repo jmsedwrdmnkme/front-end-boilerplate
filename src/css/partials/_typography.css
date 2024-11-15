@@ -16,48 +16,49 @@
 body {
   font-family: var(--font-family);
   font-size: var(--font-size);
+  line-height: 1.5;
 }
 
-h1,
-.h1 {
+h1 {
   font-family: var(--heading-font-family);
   font-size: var(--heading-h1-size);
   line-height: var(--heading-line-height);
 }
 
-h2,
-.h2 {
+h2 {
   font-family: var(--heading-font-family);
   font-size: var(--heading-h2-size);
   line-height: var(--heading-line-height);
 }
 
-h3,
-.h3 {
+h3 {
   font-family: var(--heading-font-family);
   font-size: var(--heading-h3-size);
   line-height: var(--heading-line-height);
 }
 
-h4,
-.h4 {
+h4 {
   font-family: var(--heading-font-family);
   font-size: var(--heading-h4-size);
 }
 
-h5,
-.h5 {
+h5 {
   font-family: var(--heading-font-family);
   font-size: var(--heading-h5-size);
 }
 
-h6,
-.h6 {
+h6 {
   font-family: var(--heading-font-family);
   font-size: var(--heading-h6-size);
 }
 
-h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6, p {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
   & + * {
     margin-top: var(--container-spacing);
   }
