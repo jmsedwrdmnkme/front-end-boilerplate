@@ -1,6 +1,16 @@
 blockquote {
+   quotes: '“' '”';
+
   + * {
     margin-top: var(--container-spacing);
+  }
+  
+  > :first-child::before {
+    content: open-quote;
+  }
+
+  > :has(+ cite)::after {
+    content: close-quote;
   }
 
   cite {
