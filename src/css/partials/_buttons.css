@@ -11,6 +11,7 @@ input:is([type='button'], [type='reset'], [type='submit']) {
   border-radius: calc(var(--container-spacing) / 4);
   color: var(--button-colour);
   font: inherit;
+  margin-top: 0.5rem;
   padding: calc(var(--container-spacing) / 4) calc(var(--container-spacing) / 2);
 }
 
