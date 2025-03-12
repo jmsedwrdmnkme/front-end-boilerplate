@@ -32,7 +32,7 @@
     "gulp-webp": "^5.0.0",
     "minireset.css": "^0.0.7",
     "postcss-import": "^16.1.0",
-    "webpack": "^5.97.1",
+    "webpack": "^5.98.0",
     "webpack-stream": "^7.0.0"
   }
 }

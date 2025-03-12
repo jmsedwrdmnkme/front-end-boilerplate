@@ -48,7 +48,12 @@ export function scripts() {
 
 export function styles() {
   return src('src/css/main.css', {encoding: false})
-    .pipe(postcss([atImport, cssnano()]))
+    .pipe(postcss([
+      atImport,
+      cssnano({
+        preset: ["default", { discardComments: { removeAll: true } }]
+      })
+    ]))
     .pipe(purgecss({
       content: ['dist/*.html']
     }))
