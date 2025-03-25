@@ -39,7 +39,9 @@ input:is(
   [type='reset'],
   [type='submit']
 ):active {
-  --button-background: var(--colour-black);
+  &:not(:disabled) {
+    --button-background: var(--colour-black);
+  }
 }
 
 a.button {
