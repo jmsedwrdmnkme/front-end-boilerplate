@@ -15,6 +15,8 @@ input:is([type='button'], [type='reset'], [type='submit']) {
   padding: calc(var(--container-spacing) / 4) calc(var(--container-spacing) / 2);
 }
 
+button:disabled,
+.button:disabled,
 button:hover,
 .button:hover,
 input:is(
