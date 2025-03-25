@@ -27,6 +27,11 @@ input:is(
   opacity: 0.8;
 }
 
+button:disabled,
+.button:disabled {
+  cursor: default;
+}
+
 button:active,
 .button:active,
 input:is(
