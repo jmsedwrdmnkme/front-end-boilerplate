@@ -19,12 +19,31 @@
 <a class="display-none-focusable" href="#main">Skip to main content</a>
 
 <header>
-  <nav>
-    <ul>
-      <li><a href="#">Home</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="#">Contact</a></li>
-    </ul>
+  <nav class="nav">
+    <div class="nav__container">
+      <div class="nav__logo">
+        <h1 itemscope itemtype="http://schema.org/Organization">
+          <a href="/" itemprop="url">
+            <img src="#" alt="Site name" height="38" width="150" itemprop="logo">
+          </a>
+        </h1>
+      </div>
+
+      <input type="checkbox" class="nav__toggle hidden" id="navToggle">
+      <label for="navToggle" class="nav__label"></label>
+
+      <nav class="nav__menu" role="navigation">
+        <div class="nav__link">
+          <a href="/" class="nav__link--item active" aria-current="page">Home</a>
+        </div>
+        <div class="nav__link">
+          <a href="/" class="nav__link--item">Link</a>
+        </div>
+        <div class="nav__link">
+          <a href="/" class="nav__link--item">Link</a>
+        </div>
+      </nav>
+    </div>
   </nav>
 </header>
 
