@@ -1,6 +1,6 @@
 :root {
   --button-colour: var(--colour-white);
-  --button-background: var(--colour-grey);
+  --button-background: var(--colour-red);
 }
 
 button,
