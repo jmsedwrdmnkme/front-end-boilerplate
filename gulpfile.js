@@ -38,7 +38,7 @@ export function videos() {
 }
 
 export function scripts() {
-  return src('src/js/main.js', {encoding: false})
+  return src('src/js/**/*.js', {encoding: false})
     .pipe(webpack({}, compiler, function() {}))
     .pipe(uglify())
     .pipe(concat('main.js'))
@@ -47,7 +47,13 @@ export function scripts() {
 }
 
 export function styles() {
-  return src('src/css/main.css', {encoding: false})
+  return src([
+    'node_modules/minireset.css/minireset.css',
+    'src/css/variables/*.css',
+    'src/css/utilities/*.css',
+    'src/css/partials/*.css',
+  ], {encoding: false})
+    .pipe(concat('main.css'))
     .pipe(postcss([
       atImport,
       cssnano({
