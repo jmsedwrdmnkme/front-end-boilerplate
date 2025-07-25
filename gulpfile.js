@@ -71,9 +71,13 @@ export function criticalStyles() {
   return src('dist/**/*.html', {encoding: false})
     .pipe(
       critical({
-        base: 'dist/',
         inline: true,
-        css: 'dist/css/main.css'
+        base: 'dist/',
+        css: 'dist/css/main.css',
+        target: {
+          uncritical: 'dist/css/main.css',
+        },
+        extract: true
       })
     )
     .pipe(dest('dist/'))
