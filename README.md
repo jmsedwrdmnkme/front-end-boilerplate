@@ -24,7 +24,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 
 ### CSS
 * Vanilla CSS, no frameworks here!
-* PostCSS, featuring @import plugin for your native styling needs
+* PostCSS, featuring nesting plugin for your native styling needs
 * PurgeCSS to rid of bloat and unused styles
 * Critical for inlining of critical styles and deferred loading of non-critical styles
 
