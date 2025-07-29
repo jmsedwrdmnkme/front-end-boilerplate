@@ -1,8 +1,8 @@
 import {src, dest, watch, series, parallel} from 'gulp';
 import {deleteAsync} from 'del';
 import postcss from 'gulp-postcss';
+import postcssNesting from 'postcss-nesting';
 import cssnano from 'cssnano';
-import atImport from 'postcss-import';
 import purgecss from 'gulp-purgecss';
 import {stream as critical} from 'critical';
 import compiler from 'webpack';
@@ -55,7 +55,7 @@ export function styles() {
   ], {encoding: false})
     .pipe(concat('main.css'))
     .pipe(postcss([
-      atImport,
+      postcssNesting(),
       cssnano({
         preset: ["default", { discardComments: { removeAll: true } }]
       })
@@ -75,7 +75,7 @@ export function criticalStyles() {
         base: 'dist/',
         css: 'dist/css/main.css',
         target: {
-          uncritical: 'dist/css/main.css',
+          uncritical: 'css/main.css',
         },
         extract: true
       })

@@ -1,0 +1,13 @@
+.display-none {
+  display: none;
+}
+
+.display-none-focusable {
+  display: block;
+
+  &:not(:focus) {
+    max-height: 0;
+    max-width: 0;
+    overflow: hidden;
+  }
+}
