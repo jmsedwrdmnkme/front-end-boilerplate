@@ -59,7 +59,10 @@ export function styles() {
       })
     ]))
     .pipe(purgecss({
-      content: ['dist/*.html']
+      content: ['dist/*.html'],
+      safelist: {
+        standard: [/:/]
+      }
     }))
     .pipe(dest('dist/css/'))
     .pipe(browsersync.stream());
@@ -71,11 +74,8 @@ export function criticalStyles() {
       critical({
         inline: true,
         base: 'dist/',
-        css: 'dist/css/main.css',
-        target: {
-          uncritical: 'css/main.css',
-        },
-        extract: true
+        width: 1300,
+        height: 900
       })
     )
     .pipe(dest('dist/'))
