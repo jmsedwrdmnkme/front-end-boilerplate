@@ -31,7 +31,6 @@
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.0.0",
     "minireset.css": "^0.0.7",
-    "postcss-nesting": "^13.0.2",
     "webpack": "^5.99.9",
     "webpack-stream": "^7.0.0"
   }
