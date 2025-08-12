@@ -17,7 +17,7 @@
   "devDependencies": {
     "browser-sync": "^3.0.4",
     "critical": "^7.2.1",
-    "cssnano": "^7.0.7",
+    "cssnano": "^7.1.0",
     "del": "^8.0.0",
     "gulp": "^5.0.1",
     "gulp-concat": "^2.6.1",
@@ -31,7 +31,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.0.0",
     "minireset.css": "^0.0.7",
-    "webpack": "^5.99.9",
+    "webpack": "^5.101.1",
     "webpack-stream": "^7.0.0"
   }
 }
