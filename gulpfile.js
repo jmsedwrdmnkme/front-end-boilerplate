@@ -1,12 +1,14 @@
 import {src, dest, watch, series, parallel} from 'gulp';
 import {deleteAsync} from 'del';
-import postcss from 'gulp-postcss';
-import cssnano from 'cssnano';
 import purgecss from 'gulp-purgecss';
 import {stream as critical} from 'critical';
 import compiler from 'webpack';
 import webpack from 'webpack-stream';
+import strip from 'gulp-strip-comments';
 import concat from 'gulp-concat';
+import dartSass from 'sass';
+import gulpSass from 'gulp-sass';
+const sass = gulpSass(dartSass);
 import uglify from 'gulp-uglify';
 import svgsprite from 'gulp-svg-sprite';
 import imagemin, {gifsicle, mozjpeg, optipng, svgo} from 'gulp-imagemin';
@@ -46,18 +48,12 @@ export function scripts() {
 }
 
 export function styles() {
-  return src([
-    'node_modules/minireset.css/minireset.css',
-    'src/css/variables/*.css',
-    'src/css/utilities/*.css',
-    'src/css/partials/*.css',
-  ], {encoding: false})
+  return src('src/css/main.scss', {encoding: false})
+    .pipe(sass({
+      silenceDeprecations: ['legacy-js-api', 'color-functions', 'global-builtin', 'import'],
+      style: 'compressed'
+    }).on('error', sass.logError))
     .pipe(concat('main.css'))
-    .pipe(postcss([
-      cssnano({
-        preset: ["default", { discardComments: { removeAll: true } }]
-      })
-    ]))
     .pipe(purgecss({
       content: ['dist/*.html'],
       safelist: {
@@ -165,7 +161,7 @@ export function browserSyncReload(done) {
 function watchFiles() {
   watch('src/js/**/*.js', scripts);
   watch('src/sprite/**/*.svg', sprite);
-  watch(['src/html/**/*.hbs', 'src/css/**/*.css'], htmlBuild);
+  watch(['src/html/**/*.hbs', 'src/css/**/*.scss'], htmlBuild);
   watch('src/img/**/*', images);
   watch('src/root/**/*', root);
 }
