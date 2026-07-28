@@ -32,8 +32,8 @@
     "gulp-svg-sprite": "^2.0.3",
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.1.0",
-    "sass": "^1.100.0",
-    "webpack": "^5.107.2",
+    "sass": "^1.102.0",
+    "webpack": "^5.109.0",
     "webpack-stream": "^7.0.0"
   }
 }
