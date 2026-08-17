@@ -33,7 +33,7 @@
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.1.0",
     "sass": "^1.102.0",
-    "webpack": "^5.109.1",
+    "webpack": "^5.109.2",
     "webpack-stream": "^7.0.0"
   }
 }
