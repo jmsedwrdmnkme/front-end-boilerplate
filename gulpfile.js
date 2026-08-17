@@ -60,8 +60,7 @@ function styles() {
         standard: [/:/]
       }
     }))
-    .pipe(dest('src/css/compiled/'))
-    .pipe(browsersync.stream());
+    .pipe(dest('src/css/compiled/'));
 }
 
 function criticalStyles() {
@@ -77,8 +76,7 @@ function criticalStyles() {
         extract: true
       })
     )
-    .pipe(dest('dist/'))
-    .pipe(browsersync.stream());
+    .pipe(dest('dist/'));
 }
 
 function sprite() {
@@ -130,8 +128,7 @@ function html() {
   return src('src/html/*.hbs', { encoding: false })
     .pipe(hb().partials('src/html/partials/**/*.hbs'))
     .pipe(ext('.html'))
-    .pipe(dest('dist/'))
-    .pipe(browsersync.stream());
+    .pipe(dest('dist/'));
 }
 
 function sitemaps() {
