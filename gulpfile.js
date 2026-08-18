@@ -121,11 +121,7 @@ function criticalStyles() {
       base: paths.html.dest,
       css: 'css/main.css',
       width: 1300,
-      height: 900,
-      target: { 
-        uncritical: 'css/main.css'
-      },
-      extract: true
+      height: 900
     }))
     .pipe(dest(paths.html.dest));
 }
