@@ -8,30 +8,29 @@ Will play nice(st) with the latest versions of modern browsers:-
 * Safari
 
 ## Get started
-* git clone https://github.com/jmsedwrdmnkme/front-end-boilerplate.git
-* cd front-end-boilerplate
-* pnpm install
-* gulp
+* $ git clone https://github.com/jmsedwrdmnkme/front-end-boilerplate.git
+* $ cd front-end-boilerplate
+* $ pnpm install
+* $ gulp
 * Start building!
 
 ## Features
 
 ### Javascript
 * Latest Boostrap
-* Javascript scripts process (uglify, compression, concat)
 * Webpack via Gulp watch task runner for modular imports
-* Native deferred loading of JS
+* Javascript scripts process (linting, uglify, compression, concat)
 
 ### CSS
 * Latest Boostrap
-* CSS styling process (SASS with comment removal and compression, concat)
+* Sourcemaps
+* CSS styling process (SASS with concat, minification, compression)
 * PurgeCSS to rid of bloat and unused styles
 * Critical for inlining of critical styles and deferred loading of non-critical styles
 
 ### Assets
 * Handlebars HTML templating process (featuring partials)
-* Imagemin IMG process (image optimisation and SVG minification)
+* Imagemin IMG process (image optimisation)
 * WebP conversion for imagery (optimised file size output)
-* SVG icon sprite (generated inline from SVG assets)
 * Sitemap.xml auto generated (using file creation/update date and time)
 * BrowserSync process (auto reload on file save/update)

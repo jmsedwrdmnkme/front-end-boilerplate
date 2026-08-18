@@ -5,10 +5,3 @@ allowBuilds:
   mozjpeg: true
   optipng-bin: true
   puppeteer: true
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - cwebp-bin
-  - gifsicle
-  - mozjpeg
-  - optipng-bin
-  - puppeteer

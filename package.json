@@ -1,35 +1,36 @@
 {
   "name": "front-end-boilerplate",
   "version": "1.0.0",
-  "description": "Minimal front end boilerplate, kept up to date via PNPM",
-  "main": "gulpfile.js",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "preinstall": "npx only-allow pnpm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jmsedwrdmnkme/front-end-boilerplate"
-  },
-  "author": "James Monk",
+  "keywords": [],
+  "author": "",
   "license": "ISC",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^11.21.0",
+      "onFail": "download"
+    }
+  },
   "type": "module",
-  "devDependencies": {
-    "@popperjs/core": "^2.11.8",
+  "dependencies": {
     "bootstrap": "^5.3.8",
     "browser-sync": "^3.0.4",
-    "critical": "^7.2.1",
+    "critical": "^8.0.0",
     "del": "^8.0.1",
     "gulp": "^5.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-ext-replace": "^0.3.0",
     "gulp-hb": "^8.0.0",
     "gulp-imagemin": "^9.2.0",
-    "gulp-purgecss": "^7.0.2",
+    "gulp-jshint": "^2.1.0",
+    "gulp-purgecss": "^8.0.0",
     "gulp-sass": "^6.0.1",
     "gulp-sitemap": "^8.0.0",
-    "gulp-strip-comments": "2.6.0",
-    "gulp-svg-sprite": "^2.0.3",
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.1.0",
     "sass": "^1.102.0",
