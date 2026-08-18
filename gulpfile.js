@@ -17,6 +17,9 @@ import ext from 'gulp-ext-replace';
 // Handlebars 
 import hb from 'gulp-hb';
 
+// HTML Minifier 
+import htmlmin from 'gulp-htmlmin';
+
 // SASS
 import * as dartSass from 'sass';
 import gulpSass from 'gulp-sass';
@@ -89,6 +92,10 @@ const clean = () => deleteAsync('dist/');
 function html() {
   return src(`${paths.html.src}*.hbs`)
     .pipe(hb().partials(`${paths.html.src}partials/**/*.hbs`))
+    .pipe(htmlmin({
+      collapseWhitespace: true,
+      removeComments: true
+    }))
     .pipe(ext('.html'))
     .pipe(dest(paths.html.dest));
 }
