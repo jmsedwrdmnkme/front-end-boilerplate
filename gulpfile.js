@@ -245,7 +245,7 @@ function watchFiles() {
 /*
  * Processes
  */
-export const build = series(clean, html, styles, purgeStyles, criticalStyles, scripts, favicon, images, sitemaps);
+export const build = series(clean, favicon, html, styles, purgeStyles, criticalStyles, scripts, images, sitemaps);
 const watchSrc = series(build, browserSync, watchFiles);
 
 export default watchSrc;
