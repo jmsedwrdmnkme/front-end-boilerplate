@@ -47,6 +47,9 @@ import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
 // WebP
 import webp from 'gulp-webp';
 
+// Favicon
+import favicons from 'gulp-favicons';
+
 // Sitemap
 import sitemap from 'gulp-sitemap';
 
@@ -74,9 +77,14 @@ const paths = {
     dest: 'dist/js/',
   },
   images: {
-    watch: 'src/img/**/*[.jpg|.gif|.png]',
-    src: 'src/img/**/*[.jpg|.gif|.png]',
+    watch: 'src/img/**/*.{jpg,gif,png}',
+    src: ['src/img/**/*.{jpg,gif,png}', '!src/img/favicon.png'],
     dest: 'dist/img/',
+  },
+  favicon: {
+    watch: 'src/img/favicon.png',
+    src: 'src/img/favicon.png',
+    dest: 'dist/favicons/',
   },
 };
 
@@ -90,13 +98,16 @@ const clean = () => deleteAsync('dist/');
 
 // HTMTL
 function html() {
-  return src(`${paths.html.src}*.hbs`)
+  src(`${paths.html.src}*.hbs`)
     .pipe(hb().partials(`${paths.html.src}partials/**/*.hbs`))
     .pipe(htmlmin({
       collapseWhitespace: true,
       removeComments: true
     }))
     .pipe(ext('.html'))
+    .pipe(dest(paths.html.dest));
+
+  return src(`${paths.html.src}robots.txt`)
     .pipe(dest(paths.html.dest));
 }
 
@@ -163,6 +174,31 @@ function images() {
     .pipe(dest(paths.images.dest));
 }
 
+// Favicon
+function favicon() {
+  return src(paths.favicon.src, {encoding: false})
+    .pipe(
+      favicons({
+        appName: 'Front End Boilerplate',
+        appShortName: 'FEB',
+        appDescription: 'Modern, optimised, minimal front end boilerplate; installed and kept up to date via PNPM.',
+        developerName: 'James Monk',
+        developerURL: 'https://github.com/jmsedwrdmnkme/front-end-boilerplate',
+        background: '#020307',
+        path: 'favicons/',
+        url: 'localhost:3000',
+        display: 'standalone',
+        orientation: 'portrait',
+        scope: '/',
+        start_url: '/',
+        version: 1.0,
+        html: `../../${paths.html.src}partials/favicon.hbs`,
+        pipeHTML: true,
+      })
+    )
+    .pipe(dest(paths.favicon.dest));
+}
+
 // Sitemap
 function sitemaps() {
   return src([`${paths.html.dest}*.html`], { read: false })
@@ -202,14 +238,14 @@ function browserSyncReload(done) {
 function watchFiles() {
   watch([paths.html.watch, paths.styles.watch], series(html, styles, purgeStyles, criticalStyles, sitemaps, browserSyncReload));
   watch(paths.scripts.watch, series(scripts, browserSyncReload));
-  watch(paths.images.watch, series(images, browserSyncReload));
+  watch(paths.images.watch, series(favicon, images, browserSyncReload));
 }
 
 
 /*
  * Processes
  */
-export const build = series(clean, html, styles, purgeStyles, criticalStyles, scripts, images, sitemaps);
+export const build = series(clean, html, styles, purgeStyles, criticalStyles, scripts, favicon, images, sitemaps);
 const watchSrc = series(build, browserSync, watchFiles);
 
 export default watchSrc;
