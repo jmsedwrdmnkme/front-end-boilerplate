@@ -35,8 +35,8 @@
     "gulp-sitemap": "^8.0.0",
     "gulp-uglify": "^3.0.2",
     "gulp-webp": "^5.1.0",
-    "sass": "^1.103.1",
-    "webpack": "^5.110.3",
+    "sass": "^1.105.1",
+    "webpack": "^5.111.1",
     "webpack-stream": "^7.0.0"
   }
 }
