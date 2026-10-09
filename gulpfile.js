@@ -136,6 +136,29 @@ function purgeStyles() {
     .pipe(dest(paths.styles.dest));
 }
 
+const removeUnusedVariables = () => ({
+  postcssPlugin: 'remove-unused-variables',
+  OnceExit(root) {
+    let removed;
+    do {
+      const used = new Set();
+      root.walkDecls(decl => {
+        for (const [, name] of decl.value.matchAll(/var\(\s*(--[\w-]+)/g)) {
+          used.add(name);
+        }
+      });
+      removed = false;
+      root.walkDecls(/^--/, decl => {
+        if (!used.has(decl.prop)) {
+          decl.remove();
+          removed = true;
+        }
+      });
+    } while (removed);
+  }
+});
+removeUnusedVariables.postcss = true;
+
 function criticalStyles() {
   return src([`${paths.html.dest}*.html`])
     .pipe(critical({
@@ -145,6 +168,7 @@ function criticalStyles() {
       },
       base: paths.html.dest,
       css: 'css/main.css',
+      postcss: [removeUnusedVariables()],
       width: 1300,
       height: 900
     }))
