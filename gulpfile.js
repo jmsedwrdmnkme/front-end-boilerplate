@@ -97,8 +97,8 @@ const paths = {
 const clean = () => deleteAsync('dist/');
 
 // HTMTL
-function html() {
-  src(`${paths.html.src}*.hbs`)
+function templates() {
+  return src(`${paths.html.src}*.hbs`)
     .pipe(hb().partials(`${paths.html.src}partials/**/*.hbs`))
     .pipe(htmlmin({
       collapseWhitespace: true,
@@ -106,10 +106,14 @@ function html() {
     }))
     .pipe(ext('.html'))
     .pipe(dest(paths.html.dest));
+}
 
+function robots() {
   return src(`${paths.html.src}robots.txt`)
     .pipe(dest(paths.html.dest));
 }
+
+const html = parallel(templates, robots);
 
 // Styles
 function styles() {
@@ -135,7 +139,10 @@ function purgeStyles() {
 function criticalStyles() {
   return src([`${paths.html.dest}*.html`])
     .pipe(critical({
-      inline: true,
+      inline: {
+        strategy: 'media',
+        selector: 'link[rel="stylesheet"]'
+      },
       base: paths.html.dest,
       css: 'css/main.css',
       width: 1300,
