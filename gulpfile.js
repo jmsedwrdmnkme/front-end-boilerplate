@@ -169,7 +169,7 @@ function criticalStyles() {
       base: paths.html.dest,
       css: 'css/main.css',
       postcss: [removeUnusedVariables()],
-      width: 1300,
+      width: 1400,
       height: 900
     }))
     .pipe(dest(paths.html.dest));
