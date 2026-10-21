@@ -11,7 +11,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 * $ git clone https://github.com/jmsedwrdmnkme/front-end-boilerplate.git
 * $ cd front-end-boilerplate
 * $ pnpm install
-* $ gulp
+* $ pnpm start
 * Start building!
 
 ## Features
