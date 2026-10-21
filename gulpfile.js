@@ -77,8 +77,8 @@ const paths = {
     dest: 'dist/js/',
   },
   images: {
-    watch: 'src/img/**/*.{jpg,gif,png}',
-    src: ['src/img/**/*.{jpg,gif,png}', '!src/img/favicon.png'],
+    watch: 'src/img/**/*.{jpg,jpeg,gif,png,svg}',
+    src: 'src/img/**/*.{jpg,jpeg,gif,png,svg}',
     dest: 'dist/img/',
   },
   favicon: {
@@ -200,6 +200,18 @@ function images() {
       optipng({
         optimizationLevel: 5
       }),
+      svgo({
+        plugins: [
+          {
+            name: 'preset-default',
+            params: {
+              overrides: {
+                removeDoctype: false,
+              },
+            },
+          },
+        ],
+      }),
     ]))
     .pipe(webp())
     .pipe(dest(paths.images.dest));
@@ -216,13 +228,18 @@ function favicon() {
         developerName: 'James Monk',
         developerURL: 'https://github.com/jmsedwrdmnkme/front-end-boilerplate',
         background: '#020307',
+        theme_color: '#020307',
         path: 'favicons/',
-        url: 'localhost:3000',
+        url: 'http://localhost:3000',
         display: 'standalone',
         orientation: 'portrait',
         scope: '/',
         start_url: '/',
         version: 1.0,
+        icons: {
+          appleStartup: false,
+          yandex: false
+        },
         html: `../../${paths.html.src}partials/favicon.hbs`,
         pipeHTML: true,
       })
@@ -234,11 +251,11 @@ function favicon() {
 function sitemaps() {
   return src([`${paths.html.dest}*.html`], { read: false })
     .pipe(sitemap({
-      siteUrl: 'localhost:3000',
+      siteUrl: 'http://localhost:3000',
       fileName: 'sitemap.xml',
       changefreq: 'weekly',
-      priority: function(siteUrl, loc, entry) {
-        return loc.split('/').length === 0 ? 1 : 0.5;
+      priority: function(siteUrl, loc) {
+        return loc === siteUrl ? 1 : 0.5;
       }
     }))
     .pipe(dest(paths.html.dest));
@@ -269,7 +286,8 @@ function browserSyncReload(done) {
 function watchFiles() {
   watch([paths.html.watch, paths.styles.watch], series(html, styles, purgeStyles, criticalStyles, sitemaps, browserSyncReload));
   watch(paths.scripts.watch, series(scripts, browserSyncReload));
-  watch(paths.images.watch, series(favicon, images, browserSyncReload));
+  watch(paths.images.watch, series(images, browserSyncReload));
+  watch(paths.favicon.watch, series(favicon, html, criticalStyles, browserSyncReload));
 }
 
 
