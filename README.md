@@ -26,7 +26,7 @@ Will play nice(st) with the latest versions of modern browsers:-
 * Sourcemaps
 * CSS styling process (Dart SASS via sass-embedded, compressed output)
 * PurgeCSS to rid of bloat, unused styles and unused CSS variables
-* Critical for inlining of critical styles and deferred loading of non-critical styles (no headless browser required)
+* Critical for inlining of critical styles and deferred loading of non-critical styles (Playwright render engine, testing at each Bootstrap breakpoint up to 1400px)
 
 ### Assets
 * Handlebars HTML templating process (featuring partials) with HTML minification

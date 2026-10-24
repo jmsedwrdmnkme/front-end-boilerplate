@@ -174,7 +174,16 @@ async function criticalStyles() {
     const { html } = await critical({
       src: file,
       base: paths.html.dest,
-      engine: 'static',
+      engine: 'render',
+      // Bootstrap breakpoints (xs, sm, md, lg, xl, xxl)
+      dimensions: [
+        { width: 375, height: 812 },
+        { width: 576, height: 900 },
+        { width: 768, height: 1024 },
+        { width: 992, height: 900 },
+        { width: 1200, height: 900 },
+        { width: 1400, height: 900 }
+      ],
       inline: true
     });
     await writeFile(file, html);
