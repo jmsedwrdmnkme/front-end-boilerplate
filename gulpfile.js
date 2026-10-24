@@ -138,8 +138,6 @@ function robots() {
     .pipe(dest(paths.html.dest));
 }
 
-const html = parallel(series(partials, templates), robots);
-
 // Styles
 async function styles() {
   const css = `${paths.styles.dest}main.css`;
@@ -317,6 +315,7 @@ function watchFiles() {
 /*
  * Processes
  */
+const html = parallel(series(partials, templates), robots);
 export const build = series(clean, favicon, html, styles, criticalStyles, lint, scripts, images, sitemaps);
 const watchSrc = series(build, browserSync, watchFiles);
 
