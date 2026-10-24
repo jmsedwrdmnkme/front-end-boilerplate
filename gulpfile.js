@@ -5,47 +5,43 @@
 // Gulp
 import { src, dest, watch, series, parallel } from 'gulp';
 
-// Del
-import { deleteAsync } from 'del';
+// File system
+import { glob, mkdir, readFile, rm, writeFile } from 'node:fs/promises';
+import { dirname, relative } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-// Concat 
-import concat from 'gulp-concat';
-
-// Replace extension 
-import ext from 'gulp-ext-replace';
+// Streams
+import { Transform } from 'node:stream';
 
 // Handlebars 
-import hb from 'gulp-hb';
+import Handlebars from 'handlebars';
 
 // HTML Minifier 
-import htmlmin from 'gulp-htmlmin';
+import { minify as htmlmin } from 'html-minifier-terser';
 
 // SASS
-import * as dartSass from 'sass';
-import gulpSass from 'gulp-sass';
-const sass = gulpSass(dartSass);
+import * as sass from 'sass-embedded';
+
+// PostCSS
+import postcss from 'postcss';
 
 // PurgeCSS 
-import purgecss from 'gulp-purgecss';
+import purgecss from '@fullhuman/postcss-purgecss';
 
 // Critical
-import { stream as critical } from 'critical'; // Critical
+import { critical } from 'critical';
 
-// Webpack 
-import compiler from 'webpack';
-import webpack from 'webpack-stream';
+// ESLint
+import { ESLint } from 'eslint';
 
-// JSHint
-import jshint from 'gulp-jshint';
+// ESBuild
+import * as esbuild from 'esbuild';
 
-// Uglify 
-import uglify from 'gulp-uglify';
+// Sharp
+import sharp from 'sharp';
 
-// ImageMin
-import imagemin, { gifsicle, mozjpeg, optipng, svgo } from 'gulp-imagemin';
-
-// WebP
-import webp from 'gulp-webp';
+// SVGO
+import { optimize as svgo } from 'svgo';
 
 // Favicon
 import favicons from 'gulp-favicons';
@@ -77,8 +73,8 @@ const paths = {
     dest: 'dist/js/',
   },
   images: {
-    watch: 'src/img/**/*.{jpg,jpeg,gif,png,svg}',
-    src: 'src/img/**/*.{jpg,jpeg,gif,png,svg}',
+    watch: ['src/img/**/*.{jpg,jpeg,gif,png,svg}', '!src/img/favicon.png'],
+    src: ['src/img/**/*.{jpg,jpeg,gif,png,svg}', '!src/img/favicon.png'],
     dest: 'dist/img/',
   },
   favicon: {
@@ -90,21 +86,50 @@ const paths = {
 
 
 /*
+ * Helpers
+ */
+
+// Async per-file transform
+const transform = fn => new Transform({
+  objectMode: true,
+  async transform(file, _encoding, done) {
+    try {
+      done(null, await fn(file));
+    } catch (error) {
+      done(error);
+    }
+  }
+});
+
+
+/*
  * Tasks
  */
 
 // Clean
-const clean = () => deleteAsync('dist/');
+const clean = () => rm('dist', { recursive: true, force: true });
 
-// HTMTL
+// HTML
+const handlebars = Handlebars.create();
+
+async function partials() {
+  const dir = `${paths.html.src}partials/`;
+  for await (const partial of glob(`${dir}**/*.hbs`)) {
+    handlebars.registerPartial(relative(dir, partial).replace(/\.hbs$/, ''), await readFile(partial, 'utf8'));
+  }
+}
+
 function templates() {
   return src(`${paths.html.src}*.hbs`)
-    .pipe(hb().partials(`${paths.html.src}partials/**/*.hbs`))
-    .pipe(htmlmin({
-      collapseWhitespace: true,
-      removeComments: true
+    .pipe(transform(async file => {
+      const html = handlebars.compile(file.contents.toString())({});
+      file.contents = Buffer.from(await htmlmin(html, {
+        collapseWhitespace: true,
+        removeComments: true
+      }));
+      file.extname = '.html';
+      return file;
     }))
-    .pipe(ext('.html'))
     .pipe(dest(paths.html.dest));
 }
 
@@ -113,107 +138,101 @@ function robots() {
     .pipe(dest(paths.html.dest));
 }
 
-const html = parallel(templates, robots);
+const html = parallel(series(partials, templates), robots);
 
 // Styles
-function styles() {
-  return src(paths.styles.src, { sourcemaps: true })
-    .pipe(sass({
-      silenceDeprecations: ['legacy-js-api', 'color-functions', 'global-builtin', 'import', 'if-function'],
-      style: 'compressed'
-    }).on('error', sass.logError))
-    .pipe(dest(paths.styles.dest, { sourcemaps: '.' }));
-}
-
-function purgeStyles() {
-  return src(`${paths.styles.dest}main.css`)
-    .pipe(purgecss({
+async function styles() {
+  const css = `${paths.styles.dest}main.css`;
+  const compiled = await sass.compileAsync(paths.styles.src, {
+    silenceDeprecations: ['color-functions', 'global-builtin', 'import', 'if-function'],
+    style: 'compressed',
+    sourceMap: true
+  });
+  compiled.sourceMap.sources = compiled.sourceMap.sources.map(source =>
+    relative(dirname(paths.styles.src), fileURLToPath(source))
+  );
+  const result = await postcss([
+    purgecss({
       content: [`${paths.html.dest}*.html`],
       safelist: {
         standard: [/:/]
-      }
-    }))
-    .pipe(dest(paths.styles.dest));
+      },
+      variables: true
+    })
+  ]).process(compiled.css, {
+    from: paths.styles.src,
+    to: css,
+    map: { prev: compiled.sourceMap, inline: false, annotation: true, sourcesContent: false }
+  });
+  await mkdir(paths.styles.dest, { recursive: true });
+  await Promise.all([
+    writeFile(css, result.css),
+    writeFile(`${css}.map`, result.map.toString())
+  ]);
 }
 
-const removeUnusedVariables = () => ({
-  postcssPlugin: 'remove-unused-variables',
-  OnceExit(root) {
-    let removed;
-    do {
-      const used = new Set();
-      root.walkDecls(decl => {
-        for (const [, name] of decl.value.matchAll(/var\(\s*(--[\w-]+)/g)) {
-          used.add(name);
-        }
-      });
-      removed = false;
-      root.walkDecls(/^--/, decl => {
-        if (!used.has(decl.prop)) {
-          decl.remove();
-          removed = true;
-        }
-      });
-    } while (removed);
-  }
-});
-removeUnusedVariables.postcss = true;
-
-function criticalStyles() {
-  return src([`${paths.html.dest}*.html`])
-    .pipe(critical({
-      inline: {
-        strategy: 'media',
-        selector: 'link[rel="stylesheet"]'
-      },
+async function criticalStyles() {
+  for await (const file of glob(`${paths.html.dest}*.html`)) {
+    const { html } = await critical({
+      src: file,
       base: paths.html.dest,
-      css: 'css/main.css',
-      postcss: [removeUnusedVariables()],
-      width: 1400,
-      height: 900
-    }))
-    .pipe(dest(paths.html.dest));
+      engine: 'static',
+      inline: true
+    });
+    await writeFile(file, html);
+  }
 }
 
 // Javascript
+async function lint() {
+  const eslint = new ESLint();
+  const results = await eslint.lintFiles(paths.scripts.watch);
+  const formatter = await eslint.loadFormatter('stylish');
+  const output = await formatter.format(results);
+  if (output) {
+    console.log(output);
+  }
+  if (ESLint.getErrorResults(results).length) {
+    throw new Error('ESLint found errors');
+  }
+}
+
 function scripts() {
-  return src(paths.scripts.src, { sourcemaps: true })
-    .pipe(jshint({ esversion: 6 }))
-    .pipe(jshint.reporter('default'))
-    .pipe(webpack({}, compiler, function() {}))
-    .pipe(concat('main.js'))
-    .pipe(uglify())
-    .pipe(dest(paths.scripts.dest, { sourcemaps: '.' }));
+  return esbuild.build({
+    entryPoints: [paths.scripts.src],
+    outdir: paths.scripts.dest,
+    bundle: true,
+    minify: true,
+    sourcemap: true
+  });
 }
 
 // Images
 function images() {
   return src(paths.images.src, { encoding: false })
-    .pipe(imagemin([
-      gifsicle({
-        interlaced: true
-      }),
-      mozjpeg({ 
-        quality: 75,
-        progressive: true
-      }),
-      optipng({
-        optimizationLevel: 5
-      }),
-      svgo({
-        plugins: [
-          {
-            name: 'preset-default',
-            params: {
-              overrides: {
-                removeDoctype: false,
+    .pipe(transform(async file => {
+      if (file.extname === '.svg') {
+        file.contents = Buffer.from(svgo(file.contents.toString(), {
+          path: file.path,
+          plugins: [
+            {
+              name: 'preset-default',
+              params: {
+                overrides: {
+                  removeDoctype: false,
+                },
               },
             },
-          },
-        ],
-      }),
-    ]))
-    .pipe(webp())
+          ],
+        }).data);
+      } else {
+        file.contents = await sharp(file.contents, { animated: true })
+          .webp({ quality: 75 })
+          .toBuffer();
+        file.extname = '.webp';
+      }
+      return file;
+    }))
     .pipe(dest(paths.images.dest));
 }
 
@@ -237,7 +256,11 @@ function favicon() {
         start_url: '/',
         version: 1.0,
         icons: {
+          android: ['android-chrome-192x192.png', 'android-chrome-512x512.png'],
+          appleIcon: ['apple-touch-icon-180x180.png'],
           appleStartup: false,
+          favicons: ['favicon.ico', 'favicon-16x16.png', 'favicon-32x32.png'],
+          windows: false,
           yandex: false
         },
         html: `../../${paths.html.src}partials/favicon.hbs`,
@@ -284,8 +307,8 @@ function browserSyncReload(done) {
  * Watch
  */
 function watchFiles() {
-  watch([paths.html.watch, paths.styles.watch], series(html, styles, purgeStyles, criticalStyles, sitemaps, browserSyncReload));
-  watch(paths.scripts.watch, series(scripts, browserSyncReload));
+  watch([paths.html.watch, paths.styles.watch], series(html, styles, criticalStyles, sitemaps, browserSyncReload));
+  watch(paths.scripts.watch, series(lint, scripts, browserSyncReload));
   watch(paths.images.watch, series(images, browserSyncReload));
   watch(paths.favicon.watch, series(favicon, html, criticalStyles, browserSyncReload));
 }
@@ -294,7 +317,7 @@ function watchFiles() {
 /*
  * Processes
  */
-export const build = series(clean, favicon, html, styles, purgeStyles, criticalStyles, scripts, images, sitemaps);
+export const build = series(clean, favicon, html, styles, criticalStyles, lint, scripts, images, sitemaps);
 const watchSrc = series(build, browserSync, watchFiles);
 
 export default watchSrc;

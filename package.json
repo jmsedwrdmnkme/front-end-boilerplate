@@ -4,7 +4,8 @@
   "description": "",
   "scripts": {
     "start": "gulp",
-    "build": "gulp build"
+    "build": "gulp build",
+    "lint": "eslint"
   },
   "keywords": [],
   "author": "",
@@ -19,25 +20,24 @@
   },
   "type": "module",
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^8.0.0",
     "bootstrap": "^5.3.8",
     "browser-sync": "^3.0.4",
-    "critical": "^8.0.0",
-    "del": "^8.0.1",
+    "critical": "^9.0.0",
+    "esbuild": "^0.28.2",
     "gulp": "^5.0.1",
-    "gulp-concat": "^2.6.1",
-    "gulp-ext-replace": "^0.3.0",
     "gulp-favicons": "^4.0.2",
-    "gulp-hb": "^8.0.0",
-    "gulp-htmlmin": "^5.0.1",
-    "gulp-imagemin": "^9.2.0",
-    "gulp-jshint": "^2.1.0",
-    "gulp-purgecss": "^8.0.0",
-    "gulp-sass": "^6.0.1",
     "gulp-sitemap": "^8.0.0",
-    "gulp-uglify": "^3.0.2",
-    "gulp-webp": "^5.1.0",
-    "sass": "^1.106.1",
-    "webpack": "^5.112.2",
-    "webpack-stream": "^7.0.0"
+    "handlebars": "^4.7.10",
+    "html-minifier-terser": "^7.2.0",
+    "postcss": "^8.5.31",
+    "sass-embedded": "^1.106.1",
+    "sharp": "^0.35.5",
+    "svgo": "^4.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "globals": "^17.13.0"
   }
 }

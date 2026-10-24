@@ -18,20 +18,20 @@ Will play nice(st) with the latest versions of modern browsers:-
 
 ### Javascript
 * Latest Boostrap
-* Webpack via Gulp watch task runner for modular imports
-* Javascript scripts process (linting, uglify, compression, concat)
+* esbuild for fast bundling of modular imports, minification and sourcemaps
+* ESLint linting (runs within the build/watch tasks, or standalone via `pnpm lint`)
 
 ### CSS
 * Latest Boostrap
 * Sourcemaps
-* CSS styling process (SASS with concat, minification, compression)
-* PurgeCSS to rid of bloat and unused styles
-* Critical for inlining of critical styles and deferred loading of non-critical styles
+* CSS styling process (Dart SASS via sass-embedded, compressed output)
+* PurgeCSS to rid of bloat, unused styles and unused CSS variables
+* Critical for inlining of critical styles and deferred loading of non-critical styles (no headless browser required)
 
 ### Assets
-* Handlebars HTML templating process (featuring partials)
-* Imagemin IMG process (image optimisation)
-* WebP conversion for imagery (optimised file size output)
+* Handlebars HTML templating process (featuring partials) with HTML minification
+* Sharp image process (WebP conversion for optimised file size output)
+* SVGO SVG optimisation
 * Sitemap.xml auto generated (using file creation/update date and time)
 * BrowserSync process (auto reload on file save/update)
-* Full range of favicon creation and support
+* Modern, minimal favicon set and web app manifest
